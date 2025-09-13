@@ -1,0 +1,448 @@
+
+# app_rubric_v11.R
+# U20 Technique Checklist — Offset + One-Skate + Diagonal Stride + Double Pole
+# - Clear-on-change (athlete/date/subtech)
+# - Manual prefill (Athlete + Sex + Age Group + Subtechnique), prefers Date over Submitted_At
+# - Recent unique 5 (side-panel metrics only)
+# - Integer 0–5 validation, master DB append
+
+library(shiny)
+library(shinyWidgets)   # prettyRadioButtons
+library(dplyr)
+library(glue)
+library(DT)
+library(purrr)
+library(stringr)
+library(readr)
+library(lubridate)
+
+# ---- Config ----
+data_dir <- "data"
+if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE)
+master_csv <- file.path(data_dir, "master_rubric_submissions.csv")
+
+age_groups <- c("U18","U16","U14")
+sex_choices <- c("Male", "Female", "Non-binary")  # capitalized to match prior CSVs
+
+# Helper: safe id
+safe_id <- function(x) gsub("[^A-Za-z0-9_]", "_", x)
+
+# ---- Rubric (all four subtechniques) ----
+rubric <- list(
+  "Offset" = list(
+    "Power Position" = c(
+      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
+      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
+      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+    ),
+    "Power Line" = c(
+      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
+      "Create a short amount of time between power lines",
+      "power line is maintained until force creation is started"
+    ),
+    "Ski Lift" = c(
+      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
+      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+    ),
+    "Pole Plant" = c(
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+    ),
+    "Reposition Phase" = c(
+      "arms return fast enough to have time to place poles in a vertical angle if needed",
+      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+    )
+  ),
+  "One-Skate" = list(
+    "Power Position" = c(
+      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
+      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
+      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+    ),
+    "Power Line" = c(
+      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
+      "Create a short amount of time between power lines",
+      "power line is maintained until force creation is started"
+    ),
+    "Ski Lift" = c(
+      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
+      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+    ),
+    "Pole Plant" = c(
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+    ),
+    "Leg Kick/Push" = c(
+      "different force is created throughout movement cycle (greater force during force creation phase)",
+      "creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
+      "ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+    ),
+    "Reposition Phase" = c(
+      "arms return fast enough to have time to place poles in a vertical angle if needed",
+      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+    )
+  ),
+  "Diagonal Stride" = list(
+    "Power Position" = c(
+      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
+      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
+      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+    ),
+    "Power Line" = c(
+      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
+      "Create a short amount of time between power lines",
+      "power line is maintained until force creation is started"
+    ),
+    "Ski Lift" = c(
+      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
+      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+    ),
+    "Pole Plant" = c(
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+    ),
+    "Leg Kick/Push" = c(
+      "different force is created throughout movement cycle (greater force during force creation phase)",
+      "creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
+      "ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+    ),
+    "Reposition Phase" = c(
+      "arms return fast enough to have time to place poles in a vertical angle if needed",
+      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+    )
+  ),
+  "Double Pole" = list(
+    "Power Position" = c(
+      "high starting position with aggressive body angle of 70-75 degrees",
+      "hips flex, knee drive  forward and torso goes down at same time  to load the poles",
+      "high speed movement of downward and forward movemnt of upperbody"
+    ),
+    "Reposition Phase" = c(
+      "body is balanced (COM) on mid foot at end of pole plant with upper body being used as a counterweight to hips to maintain position",
+      "shin angle is maintained at 70-75 degrees at end of pole plant and the body is drawn forward and extended to high starting position to start cycle again"
+    ),
+    "Pole Plant" = c(
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "torso leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+    )
+  )
+)
+
+subtechniques <- names(rubric)
+
+# ---- UI ----
+ui <- fluidPage(
+  fluidRow(
+    column(6, tags$img(src = "CSIP.jpg", height = "60px", style="display:block;")), 
+    column(6, div(style="text-align:right;", tags$img(src = "CCBC.jpg", height = "60px")))
+  ),
+  titlePanel("U20 Technique Checklist — Rubric Entry"),
+  sidebarLayout(
+    sidebarPanel(
+      # Athlete selectize (create new allowed)
+      selectizeInput("athlete", "Athlete name",
+        choices = NULL,
+        options = list(placeholder = "Type a name or pick from list", create = TRUE)
+      ),
+      # Vertical button-style radios for Sex and Age Group
+      prettyRadioButtons(
+        inputId = "sex_btn", label = "Sex",
+        choices = sex_choices, inline = FALSE, status = "primary", animation = "jelly"
+      ),
+      prettyRadioButtons(
+        inputId = "age_btn", label = "Age Group",
+        choices = age_groups, inline = FALSE, status = "info", animation = "jelly"
+      ),
+      dateInput("date", "Date", value = Sys.Date()),
+      hr(),
+      # Vertical button-style radios for Subtechnique
+      prettyRadioButtons(
+        inputId = "subtech", label = "Subtechnique",
+        choices = subtechniques, inline = FALSE, status = "success", animation = "jelly",
+        selected = subtechniques[1]
+      ),
+      br(),
+      actionButton("prefill_btn", "Load Previous Scores", class = "btn-outline-secondary", width = "100%"),
+      br(), br(),
+      actionButton("submit", "Submit & Save", class = "btn-primary", width = "100%"),
+      br(), br(),
+      uiOutput("status"),
+      uiOutput("prefill_msg")
+    ),
+    mainPanel(
+      # Render only the selected subtechnique
+      uiOutput("ui_subtech"),
+      hr(),
+      h4("Recent submissions (latest 10)"),
+      DTOutput("tbl_recent")
+    )
+  )
+)
+
+# ---- Server ----
+server <- function(input, output, session) {
+
+  # Load master DB (if exists) and populate athlete choices
+  master_df <- reactiveVal({
+    if (file.exists(master_csv)) {
+      suppressMessages(readr::read_csv(master_csv, show_col_types = FALSE))
+    } else {
+      tibble(
+        Athlete = character(),
+        Sex = character(),
+        Age_Group = character(),
+        Date = character(),
+        Submitted_At = character(),
+        Subtechnique = character(),
+        Area = character(),
+        Item = character(),
+        Score = integer(),
+        Comment = character()
+      )
+    }
+  })
+
+  observe({
+    df <- master_df()
+    athletes <- sort(unique(df$Athlete[df$Athlete != ""]))
+    updateSelectizeInput(session, "athlete", choices = athletes, server = TRUE, selected = isolate(input$athlete))
+  })
+
+  # Render UI for selected subtechnique
+  output$ui_subtech <- renderUI({
+    req(input$subtech)
+    st <- input$subtech
+    st_list <- rubric[[st]]
+    if (length(st_list) == 0) {
+      return(div(em("No items configured yet for this subtechnique.")))
+    }
+    tagList(
+      lapply(names(st_list), function(area) {
+        items <- st_list[[area]]
+        wellPanel(
+          h4(strong(paste(st, "—", area))),
+          do.call(tagList, lapply(seq_along(items), function(i) {
+            item <- items[[i]]
+            sid <- paste0("score_", safe_id(st), "_", safe_id(area), "_", i)
+            cid <- paste0("comment_", safe_id(st), "_", safe_id(area), "_", i)
+            fluidRow(
+              column(6, div(style="padding-top:6px;", item)),
+              column(2, numericInput(sid, "Score (0–5)", value = NA, min = 0, max = 5, step = 1, width = "100%")),
+              column(4, textInput(cid, "Comment", placeholder = "Short note", width = "100%"))
+            )
+          }))
+        )
+      })
+    )
+  })
+
+  output$prefill_msg <- renderUI(NULL)
+
+  # Utility: clear all item inputs for current subtechnique
+  clear_current_subtech <- function() {
+    req(input$subtech)
+    st <- input$subtech
+    st_list <- rubric[[st]]
+    if (length(st_list) == 0) return(invisible(NULL))
+    for (area in names(st_list)) {
+      items <- st_list[[area]]
+      for (i in seq_along(items)) {
+        sid <- paste0("score_", safe_id(st), "_", safe_id(area), "_", i)
+        cid <- paste0("comment_", safe_id(st), "_", safe_id(area), "_", i)
+        updateNumericInput(session, sid, value = NA_real_)
+        updateTextInput(session, cid, value = "")
+      }
+    }
+    output$prefill_msg <- renderUI(NULL)
+  }
+
+  # Clear form for new entries when athlete, date, or subtechnique changes
+  observeEvent(input$athlete, { clear_current_subtech() }, ignoreInit = TRUE)
+  observeEvent(input$date,    { clear_current_subtech() }, ignoreInit = TRUE)
+  observeEvent(input$subtech, { clear_current_subtech() }, ignoreInit = TRUE)
+
+  # Manual prefill (quad-match): Athlete + Sex + Age Group + Subtechnique, prefers Date
+  do_prefill <- function() {
+    req(input$athlete, input$sex_btn, input$age_btn, input$subtech)
+    df <- master_df()
+    st <- input$subtech
+    st_list <- rubric[[st]]
+    if (length(st_list) == 0) return(invisible(NULL))
+
+    df_match <- df %>% filter(
+      Athlete == input$athlete,
+      Sex == input$sex_btn,
+      Age_Group == input$age_btn,
+      Subtechnique == st
+    )
+
+    if (nrow(df_match) == 0) {
+      output$prefill_msg <- renderUI(div(style="color:#999;", "No previous matching entry to prefill."))
+      return(invisible(NULL))
+    }
+
+    df_match <- df_match %>%
+      mutate(
+        Submitted_At = suppressWarnings(lubridate::ymd_hms(Submitted_At)),
+        Date = suppressWarnings(lubridate::ymd(Date))
+      ) %>%
+      arrange(desc(Date), desc(Submitted_At))
+
+    latest_stamp <- df_match$Date[1]
+
+    latest <- df_match %>%
+      arrange(desc(Date), desc(Submitted_At)) %>%
+      group_by(Area, Item) %>%
+      slice(1) %>%
+      ungroup()
+
+    for (area in names(st_list)) {
+      items <- st_list[[area]]
+      for (i in seq_along(items)) {
+        item <- items[[i]]
+        sid <- paste0("score_", safe_id(st), "_", safe_id(area), "_", i)
+        cid <- paste0("comment_", safe_id(st), "_", safe_id(area), "_", i)
+        row <- latest %>% filter(Area == area, Item == item)
+        if (nrow(row) > 0) {
+          sc <- suppressWarnings(as.numeric(row$Score[1]))
+          cm <- row$Comment[1]
+          updateNumericInput(session, sid, value = ifelse(is.na(sc), NA_real_, sc))
+          updateTextInput(session, cid, value = ifelse(is.na(cm), "", cm))
+        } else {
+          updateNumericInput(session, sid, value = NA_real_)
+          updateTextInput(session, cid, value = "")
+        }
+      }
+    }
+    output$prefill_msg <- renderUI(div(style="color:#2b7a0b;",
+      paste("Loaded previous scores from", as.character(latest_stamp))
+    ))
+  }
+
+  observeEvent(input$prefill_btn, { output$status <- renderUI(NULL); do_prefill() })
+  # Clear saved message when key fields change
+  observeEvent(input$athlete, { output$status <- renderUI(NULL) }, ignoreInit = TRUE)
+  observeEvent(input$sex_btn, { output$status <- renderUI(NULL) }, ignoreInit = TRUE)
+  observeEvent(input$age_btn, { output$status <- renderUI(NULL) }, ignoreInit = TRUE)
+  observeEvent(input$date,    { output$status <- renderUI(NULL) }, ignoreInit = TRUE)
+  observeEvent(input$subtech, { output$status <- renderUI(NULL) }, ignoreInit = TRUE)
+
+
+
+  # Assemble only the currently selected subtechnique rows (used for validation/save)
+  assembled <- reactive({
+    req(input$athlete, input$sex_btn, input$age_btn, input$date, input$subtech)
+    st <- input$subtech
+    st_list <- rubric[[st]]
+    rows <- list()
+    for (area in names(st_list)) {
+      items <- st_list[[area]]
+      for (i in seq_along(items)) {
+        item <- items[[i]]
+        sid <- paste0("score_", safe_id(st), "_", safe_id(area), "_", i)
+        cid <- paste0("comment_", safe_id(st), "_", safe_id(area), "_", i)
+        score <- input[[sid]]
+        comm  <- input[[cid]]
+        rows[[length(rows)+1]] <- data.frame(
+          Athlete      = trimws(input$athlete),
+          Sex          = input$sex_btn,
+          Age_Group    = input$age_btn,
+          Date         = as.character(input$date),
+          Submitted_At = as.character(Sys.time()),
+          Subtechnique = st,
+          Area         = area,
+          Item         = item,
+          Score        = score,
+          Comment      = ifelse(is.null(comm) || comm == "", NA, comm),
+          stringsAsFactors = FALSE, check.names = FALSE
+        )
+      }
+    }
+    dplyr::bind_rows(rows)
+  })
+
+  # Recent 5 table: most recent unique submissions by (Athlete, Sex, Age_Group, Date, Subtechnique)
+  output$tbl_recent <- renderDT({
+    df <- master_df()
+    if (nrow(df) == 0) {
+      return(datatable(data.frame(
+        Athlete = character(), Sex = character(), Age_Group = character(),
+        Date = character(), Subtechnique = character()
+      ), options = list(dom = 't')))
+    }
+    recent <- df %>%
+      mutate(
+        ts = suppressWarnings(ymd_hms(Submitted_At)),
+        d  = suppressWarnings(ymd(Date)),
+        key_ts = dplyr::coalesce(ts, d)
+      ) %>%
+      group_by(Athlete, Sex, Age_Group, Date, Subtechnique) %>%
+      summarise(latest_key = max(key_ts, na.rm = TRUE), .groups = "drop") %>%
+      arrange(desc(latest_key)) %>%
+      select(Athlete, Sex, Age_Group, Date, Subtechnique) %>%
+      head(10)
+
+    datatable(recent, options = list(pageLength = 10, dom = 't'))
+  })
+
+  output$status <- renderUI(NULL)
+
+  # Validate: whole number 0–5 for all items of selected subtechnique
+  validate_scores <- function(df) {
+    bad <- df %>%
+      mutate(
+        score_num = suppressWarnings(as.numeric(Score)),
+        score_int = suppressWarnings(as.integer(Score)),
+        is_int = !is.na(score_num) & !is.na(score_int) & (score_num == score_int),
+        in_range = !is.na(score_num) & score_num >= 0 & score_num <= 5
+      ) %>%
+      filter(!(is_int & in_range))
+    bad
+  }
+
+  observeEvent(input$submit, {
+    errs <- c()
+    if (is.null(input$athlete) || !nzchar(trimws(input$athlete))) errs <- c(errs, "Athlete name is required.")
+    if (is.null(input$sex_btn) || !nzchar(trimws(input$sex_btn))) errs <- c(errs, "Sex is required.")
+    if (is.null(input$age_btn) || !nzchar(trimws(input$age_btn))) errs <- c(errs, "Age Group is required.")
+
+    out <- assembled()
+
+    if (any(is.na(out$Score))) {
+      missing <- out %>% filter(is.na(Score)) %>% select(Area, Item)
+      errs <- c(errs, glue("Missing score(s) for {nrow(missing)} item(s). Please complete all scores."))
+    } else {
+      bad <- validate_scores(out)
+      if (nrow(bad) > 0) {
+        preview <- paste0(utils::head(glue("- {bad$Area}: '{bad$Item}' (got '{bad$Score}')"), 6), collapse = "\n")
+        errs <- c(errs, "Scores must be whole numbers 0–5. Please fix:\n", preview)
+      }
+    }
+
+    if (length(errs) > 0) {
+      output$status <- renderText(paste(errs, collapse = "\n"))
+      return(NULL)
+    }
+
+    # Append to master
+    if (file.exists(master_csv)) {
+      readr::write_csv(out, master_csv, append = TRUE)
+    } else {
+      readr::write_csv(out, master_csv)
+    }
+
+    output$status <- renderUI(div(style="background:#e8f5e9;border:1px solid #2e7d32;color:#1b5e20;padding:8px 12px;border-radius:6px;margin-top:6px;", "Saved to database"))
+    # Refresh master reactive so new athletes appear and recent list updates
+    master_df({
+      suppressMessages(readr::read_csv(master_csv, show_col_types = FALSE))
+    })
+    # Clear the form after submit for next entry
+    clear_current_subtech()
+  })
+}
+
+shinyApp(ui, server)

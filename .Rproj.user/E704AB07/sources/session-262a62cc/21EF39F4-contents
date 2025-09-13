@@ -1,0 +1,35 @@
+
+# Technique Checklist — Shiny Data Entry App
+
+This app was generated from your Excel workbook `2025_updated_U20_checklist.xlsx`.
+It creates a tab per sheet, lets users edit tables directly, add/delete rows, and save to CSV.
+
+## How to run locally
+
+1. Install R (4.2+) and R packages:
+
+```r
+install.packages(c("shiny", "readxl", "DT", "dplyr", "stringr", "purrr", "glue"))
+```
+
+2. Place these files in the same folder:
+   - `app.R`
+   - `2025_updated_U20_checklist.xlsx`
+
+3. From that folder, run:
+
+```r
+shiny::runApp()
+```
+
+Data you save from the app will be written to the `./data` folder as CSV files
+(one per sheet). You can also download a combined CSV via the **Home** tab.
+
+## Notes & Customization
+
+- All cells are treated as free-text for flexible entry. If you want stricter
+  validation (e.g., dates, numeric-only, dropdowns), I can add per-column rules.
+- To pre-populate with existing saved data, place CSVs in `./data` named after
+  the sheet (e.g., `MySheet.csv`). The app will load those instead of the Excel.
+- If you deploy to shinyapps.io or a server, include both `app.R` and the Excel
+  in the app bundle. The app will create the `data/` directory at first run.

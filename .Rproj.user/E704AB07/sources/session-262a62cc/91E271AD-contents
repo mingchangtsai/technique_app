@@ -1,0 +1,154 @@
+
+# app_form.R
+# U20 Checklist — Data Entry (No Excel dependency)
+
+library(shiny)
+library(DT)
+library(dplyr)
+library(glue)
+library(lubridate)
+
+# ---- Config ----
+# Predefined skills (derived once from your original workbook, hardcoded)
+skill_choices <- c("Diagonal Stride", "Double Pole", "Offset", "One-Skate")
+
+# Columns for the checklist table
+base_cols <- c("Skill", "Cue / Observation", "Category", "Phase", "Comments")
+
+# Storage
+data_dir <- "data"
+if (!dir.exists(data_dir)) dir.create(data_dir, recursive = TRUE)
+master_csv <- file.path(data_dir, "master_submissions.csv")
+
+# ---- UI ----
+ui <- fluidPage(
+  titlePanel("U20 Technique Checklist — Data Entry"),
+  sidebarLayout(
+    sidebarPanel(
+      textInput("athlete", "Athlete name", placeholder = "First Last"),
+      selectInput("sex", "Sex", choices = c("", "Female", "Male", "Non-binary", "Prefer not to say")),
+      dateInput("date", "Date", value = Sys.Date()),
+      tags$hr(),
+      selectInput("new_skill", "Quick add row for skill", choices = skill_choices, selected = "Offset"),
+      actionButton("add_row", "Add Row"),
+      actionButton("clear_rows", "Clear Table"),
+      tags$hr(),
+      actionButton("submit", "Submit & Save", class = "btn-primary"),
+      br(), br(),
+      verbatimTextOutput("status")
+    ),
+    mainPanel(
+      h4("Checklist Entries"),
+      p("Double-click a cell to edit. Add rows for each observation/cue you want to record."),
+      DTOutput("tbl"),
+      br(),
+      downloadButton("download_template", "Download Blank Template (CSV)")
+    )
+  )
+)
+
+# ---- Server ----
+server <- function(input, output, session) {
+  # reactive table
+  r_tbl <- reactiveVal({
+    # start with 0 rows, predefined columns
+    as.data.frame(setNames(replicate(length(base_cols), character(0), simplify = FALSE), base_cols))
+  })
+
+  # render table
+  output$tbl <- renderDT({
+    datatable(
+      r_tbl(),
+      editable = "cell",
+      rownames = FALSE,
+      options = list(scrollX = TRUE, pageLength = 15, dom = 'tp')
+    )
+  }, server = TRUE)
+
+  # edit handler
+  observeEvent(input$tbl_cell_edit, {
+    info <- input$tbl_cell_edit
+    df <- r_tbl()
+    i <- info$row; j <- info$col; v <- info$value
+    if (i <= nrow(df) && j <= ncol(df)) {
+      df[i, j] <- v
+      r_tbl(df)
+      replaceData(dataTableProxy("tbl"), df, resetPaging = FALSE)
+    }
+  })
+
+  # add row
+  observeEvent(input$add_row, {
+    df <- r_tbl()
+    new_row <- setNames(as.list(rep("", length(base_cols))), base_cols)
+    new_row[["Skill"]] <- input$new_skill
+    df <- bind_rows(df, new_row)
+    r_tbl(df)
+    replaceData(dataTableProxy("tbl"), df, resetPaging = FALSE)
+  })
+
+  # clear rows
+  observeEvent(input$clear_rows, {
+    r_tbl(as.data.frame(setNames(replicate(length(base_cols), character(0), simplify = FALSE), base_cols)))
+    replaceData(dataTableProxy("tbl"), r_tbl(), resetPaging = TRUE)
+  })
+
+  # download blank template
+  output$download_template <- downloadHandler(
+    filename = function() "U20_checklist_template.csv",
+    content = function(file) {
+      tmp <- as.data.frame(setNames(replicate(length(base_cols), character(0), simplify = FALSE), base_cols))
+      write.csv(tmp, file, row.names = FALSE, na = "")
+    }
+  )
+
+  # submit
+  output$status <- renderText("")
+  observeEvent(input$submit, {
+    # validations
+    errs <- c()
+    if (is.null(input$athlete) || !nzchar(trimws(input$athlete))) errs <- c(errs, "Athlete name is required.")
+    if (is.null(input$sex) || !nzchar(trimws(input$sex))) errs <- c(errs, "Sex is required.")
+    df <- r_tbl()
+    if (nrow(df) == 0) errs <- c(errs, "Please add at least one checklist row.")
+    if (length(errs) > 0) {
+      output$status <- renderText(paste(errs, collapse = "\n"))
+      return(NULL)
+    }
+
+    # submission meta
+    stamp <- format(Sys.time(), "%Y%m%d-%H%M%S")
+    safe_name <- gsub("[^A-Za-z0-9_]+", "_", tolower(trimws(input$athlete)))
+    submit_file <- file.path(data_dir, glue("{stamp}_{safe_name}.csv"))
+
+    # append meta columns
+    out <- df %>%
+      mutate(
+        Athlete = trimws(input$athlete),
+        Sex = input$sex,
+        Date = as.character(input$date),
+        Submitted_At = as.character(Sys.time())
+      ) %>%
+      relocate(Athlete, Sex, Date, Submitted_At, .before = 1)
+
+    # write individual submission
+    write.csv(out, submit_file, row.names = FALSE, na = "")
+
+    # append to master
+    if (file.exists(master_csv)) {
+      master <- read.csv(master_csv, check.names = FALSE, stringsAsFactors = FALSE)
+      master <- bind_rows(master, out)
+      write.csv(master, master_csv, row.names = FALSE, na = "")
+    } else {
+      write.csv(out, master_csv, row.names = FALSE, na = "")
+    }
+
+    output$status <- renderText(glue("Saved {nrow(out)} rows to {submit_file} and appended to {basename(master_csv)}."))
+
+    # optional: clear table after submit
+    r_tbl(as.data.frame(setNames(replicate(length(base_cols), character(0), simplify = FALSE), base_cols)))
+    replaceData(dataTableProxy("tbl"), r_tbl(), resetPaging = TRUE)
+  })
+}
+
+shinyApp(ui, server)
