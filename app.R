@@ -34,7 +34,7 @@ cap_first <- function(s) {
   ifelse(is.na(s) | nchar(s) == 0, s, paste0(toupper(substr(s,1,1)), substring(s,2)))
 }
 
-age_groups  <- c("BC Ski", "BC Dev")   # "Team" labels
+age_groups  <- c("BC Ski (T2W)", "BC Dev (L2C)")   # "Team" labels
 sex_choices <- c("Male","Female")
 
 # --------- Rubrics (from your latest version) ----------
@@ -423,7 +423,7 @@ server <- function(input, output, session) {
   current_st_list <- reactive({
     req(input$subtech)
     st <- input$subtech
-    is_u16 <- !is.null(input$age_btn) && (input$age_btn %in% c("U16", "BC Dev"))
+    is_u16 <- !is.null(input$age_btn) && (input$age_btn %in% c("BC Dev (L2C)"))
     if (is_u16 && !is.null(rubric_u16[[st]])) rubric_u16[[st]] else rubric[[st]]
   })
 
