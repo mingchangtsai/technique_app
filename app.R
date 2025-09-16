@@ -1,7 +1,8 @@
 
-# app_v30.R — CCBC Technique Checklist (Shinylive-ready, POST fix)
-# - Fix: convert data.frame -> list-of-rows before POST so GAS receives [{...},{...}] rows
-# - Better error surfacing for save/replace responses
+# app_v34.R — CCBC Technique Checklist (GAS-served athletes; Shinylive-safe)
+# - Reads API_URL/API_KEY from app_config.R or environment variables
+# - Loads athlete list from Google Apps Script doGet?action=athletes (server holds secrets)
+# - Keeps Google Apps Script backend for saving/replace
 
 library(shiny)
 library(DT)
@@ -11,10 +12,20 @@ library(lubridate)
 library(jsonlite)
 suppressWarnings(suppressPackageStartupMessages(library(shinyWidgets)))
 
-# ===================== CONFIG =====================
-API_URL <- "https://script.google.com/macros/s/AKfycbxDDx3iTpez8jz0AdkzXLzEgSGU2QvudO7cYxJqwDUHuiwFKPC2RHSL5sROOVjsZGyr/exec"
-API_KEY <- "cCkbo3tpI9CQLTBTY8bkeWeHt-6oHlCsZ8O7YuQ4fClB64LG1z_nq-oUdyZ4KsAf"
-# ==================================================
+`%||%` <- function(a, b) if (!is.null(a) && length(a) > 0 && nzchar(as.character(a)[1])) a else b
+
+# ===================== CONFIG LOAD =====================
+# Either provide app_config.R with API_URL, API_KEY, or set env vars API_URL, API_KEY
+cfg_path <- "app_config.R"
+if (file.exists(cfg_path)) {
+  source(cfg_path, local = TRUE)
+}
+API_URL <- get0("API_URL", inherits = FALSE) %||% Sys.getenv("API_URL", "")
+API_KEY <- get0("API_KEY", inherits = FALSE) %||% Sys.getenv("API_KEY", "")
+if (!nzchar(API_URL) || !nzchar(API_KEY)) {
+  stop("Missing API_URL or API_KEY. Create app_config.R (git-ignored) or set environment variables.")
+}
+# =======================================================
 
 safe_id <- function(x) gsub("[^A-Za-z0-9_]", "_", x)
 cap_first <- function(s) {
@@ -23,10 +34,10 @@ cap_first <- function(s) {
   ifelse(is.na(s) | nchar(s) == 0, s, paste0(toupper(substr(s,1,1)), substring(s,2)))
 }
 
-age_groups  <- c("U18","U16")
+age_groups  <- c("BC Ski", "BC Dev")   # "Team" labels
 sex_choices <- c("Male","Female")
 
-# --------- Rubrics (shortened for brevity: same as previous message) ----------
+# --------- Rubrics (from your latest version) ----------
 rubric <- list(
   "Offset" = list(
     "Power Position" = c(
@@ -234,6 +245,7 @@ rubric_u16 <- list(
 
 subtechniques <- names(rubric)
 
+# ---- UI ----
 ui <- fluidPage(
   tags$head(
     tags$style(HTML("
@@ -303,8 +315,9 @@ ui <- fluidPage(
         choices = NULL,
         options = list(placeholder = "Type a name or pick from list", create = TRUE)
       ),
+      htmlOutput("athlete_hint"),
       shinyWidgets::prettyRadioButtons("sex_btn", "Sex", choices = sex_choices, inline = FALSE, status = "primary", animation = "jelly"),
-      shinyWidgets::prettyRadioButtons("age_btn", "Age Group", choices = age_groups, inline = FALSE, status = "info", animation = "jelly"),
+      shinyWidgets::prettyRadioButtons("age_btn", "Team", choices = age_groups, inline = FALSE, status = "info", animation = "jelly"),
       dateInput("date", "Date", value = Sys.Date()),
       hr(),
       shinyWidgets::prettyRadioButtons("subtech", "Subtechnique", choices = subtechniques, inline = FALSE, status = "success", animation = "jelly", selected = subtechniques[1]),
@@ -374,6 +387,7 @@ server <- function(input, output, session) {
     )
   )
 
+  # Load all rows (for prefill + recent) and the ATHLETES list from GAS
   observeEvent(TRUE, {
     gas_get(session, list(), "gas_all")
     gas_get(session, list(action = "athletes"), "gas_athletes")
@@ -394,19 +408,23 @@ server <- function(input, output, session) {
     }
   }, ignoreInit = TRUE)
 
+  output$athlete_hint <- renderUI(NULL)
   observeEvent(input$gas_athletes, {
     if (isTRUE(input$gas_athletes$ok) && isTRUE(input$gas_athletes$data$ok)) {
-      choices <- unlist(input$gas_athletes$data$data)
+      choices <- unlist(input$gas_athletes$data$data, use.names = FALSE)
       updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
+      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from server", length(choices))))
+    } else {
+      output$athlete_hint <- renderUI(span(style="color:#c00;", "Could not load athlete names"))
     }
   }, ignoreInit = TRUE)
 
+  # Map Team -> U16 rubric for "BC Dev"
   current_st_list <- reactive({
     req(input$subtech)
     st <- input$subtech
-    if (!is.null(input$age_btn) && input$age_btn == "U16" && !is.null(rubric_u16[[st]])) {
-      rubric_u16[[st]]
-    } else rubric[[st]]
+    is_u16 <- !is.null(input$age_btn) && (input$age_btn %in% c("U16", "BC Dev"))
+    if (is_u16 && !is.null(rubric_u16[[st]])) rubric_u16[[st]] else rubric[[st]]
   })
 
   output$ui_subtech <- renderUI({
@@ -528,7 +546,7 @@ server <- function(input, output, session) {
         rows[[length(rows)+1]] <- data.frame(
           Athlete      = trimws(input$athlete),
           Sex          = input$sex_btn,
-          Age_Group    = input$age_btn,
+          Age_Group    = input$age_btn,   # stored as chosen Team label
           Date         = as.character(input$date),
           Submitted_At = as.character(Sys.time()),
           Subtechnique = st,
@@ -561,7 +579,7 @@ server <- function(input, output, session) {
     errs <- c()
     if (is.null(input$athlete) || !nzchar(trimws(input$athlete))) errs <- c(errs, "Athlete name is required.")
     if (is.null(input$sex_btn) || !nzchar(trimws(input$sex_btn))) errs <- c(errs, "Sex is required.")
-    if (is.null(input$age_btn) || !nzchar(trimws(input$age_btn))) errs <- c(errs, "Age Group is required.")
+    if (is.null(input$age_btn) || !nzchar(trimws(input$age_btn))) errs <- c(errs, "Team is required.")
 
     out <- assembled()
 
@@ -615,7 +633,7 @@ server <- function(input, output, session) {
           tags$ul(
             tags$li(glue("Athlete: {key_vals$Athlete}")),
             tags$li(glue("Sex: {key_vals$Sex}")),
-            tags$li(glue("Age Group: {key_vals$Age_Group}")),
+            tags$li(glue("Team: {key_vals$Age_Group}")),
             tags$li(glue("Date: {key_vals$Date}")),
             tags$li(glue("Subtechnique: {key_vals$Subtechnique}"))
           ),
@@ -628,7 +646,6 @@ server <- function(input, output, session) {
     gas_post(session, action = "append", rows = out, inputId = "gas_save")
   })
 
-  # Show detailed API errors
   render_save_error <- function(obj) {
     if (is.null(obj)) return("Error: could not save to database")
     if (isTRUE(obj$ok) && isTRUE(obj$data$ok)) return("Saved to database")
@@ -697,7 +714,7 @@ server <- function(input, output, session) {
     df <- master_df()
     if (nrow(df) == 0) {
       return(datatable(data.frame(
-        Athlete = character(), Sex = character(), Age_Group = character(), Date = character(), Subtechnique = character()
+        Athlete = character(), Sex = character(), Team = character(), Date = character(), Subtechnique = character()
       ), options = list(dom = 't', pageLength = 10)))
     }
     recent <- df %>%
@@ -712,8 +729,8 @@ server <- function(input, output, session) {
       group_by(Athlete, Sex, Age_Group, Date_out, Subtechnique) %>%
       summarise(latest_key = max(key_ts, na.rm = TRUE), .groups = "drop") %>%
       arrange(desc(latest_key)) %>%
-      rename(Date = Date_out) %>%
-      select(Athlete, Sex, Age_Group, Date, Subtechnique) %>%
+      rename(Date = Date_out, Team = Age_Group) %>%
+      select(Athlete, Sex, Team, Date, Subtechnique) %>%
       head(10)
     datatable(recent, options = list(pageLength = 10, dom = 't'))
   })
