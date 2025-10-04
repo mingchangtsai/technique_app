@@ -57,7 +57,7 @@ rubric <- list(
     "Power Line" = c(
       "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
       "Create a short amount of time between power lines",
-      "power line is maintained until force creation is started"
+      "Power line is maintained until force creation is started"
     ),
     "Ski Lift" = c(
       "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
@@ -66,11 +66,11 @@ rubric <- list(
     "Pole Plant" = c(
       "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
       "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
     ),
     "Reposition Phase" = c(
-      "arms return fast enough to have time to place poles in a vertical angle if needed",
-      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+      "Arms return fast enough to have time to place poles in a vertical angle if needed",
+      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
     )
   ),
   "One-Skate" = list(
@@ -82,7 +82,7 @@ rubric <- list(
     "Power Line" = c(
       "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
       "Create a short amount of time between power lines",
-      "power line is maintained until force creation is started"
+      "Power line is maintained until force creation is started"
     ),
     "Ski Lift" = c(
       "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
@@ -91,16 +91,16 @@ rubric <- list(
     "Pole Plant" = c(
       "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
       "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
     ),
     "Leg Kick/Push" = c(
-      "different force is created throughout movement cycle (greater force during force creation phase)",
-      "creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
-      "ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+      "Different force is created throughout movement cycle (greater force during force creation phase)",
+      "Creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
+      "Ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
     ),
     "Reposition Phase" = c(
-      "arms return fast enough to have time to place poles in a vertical angle if needed",
-      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+      "Arms return fast enough to have time to place poles in a vertical angle if needed",
+      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
     )
   ),
   "Diagonal Stride" = list(
@@ -112,40 +112,40 @@ rubric <- list(
     "Power Line" = c(
       "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
       "Create a short amount of time between power lines",
-      "power line is maintained until force creation is started"
+      "Power line is maintained until force creation is started"
     ),
     "Ski Lift" = c(
       "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
       "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
     ),
     "Pole Plant" = c(
-      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating close to vertical pole plant",
       "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
     ),
     "Leg Kick/Push" = c(
-      "different force is created throughout movement cycle (greater force during force creation phase)",
-      "creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
-      "ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+      "Different force is created throughout movement cycle (greater force during force creation phase)",
+      "Creation of a power & impulse starts under COM and leaves the ground in a timely manner for grade and snow condition",
+      "Ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
     ),
     "Reposition Phase" = c(
-      "arms return fast enough to have time to place poles in a vertical angle if needed",
-      "a preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+      "Arms return fast enough to have time to place poles in a vertical angle if needed",
+      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
     )
   ),
   "Double Pole" = list(
     "Power Position" = c(
-      "high starting position with aggressive body angle of 70-75 degrees",
-      "hips flex, knee drive  forward and torso goes down at same time  to load the poles",
-      "high speed movement of downward and forward movemnt of upperbody"
+      "High starting position with aggressive body angle of 70-75 degrees",
+      "Knee and torso flexion initiates the drive forward  to load the poles in high speed movement",
+      "Poles are adequatly loaded after the stretch shortening cycle of arms in direction of travel"
     ),
     "Reposition Phase" = c(
-      "body is balanced (COM) on mid foot at end of pole plant with upper body being used as a counterweight to hips to maintain position",
-      "shin angle is maintained at 70-75 degrees at end of pole plant and the body is drawn forward and extended to high starting position to start cycle again"
+      "Body is balanced (COM) on mid foot at end of pole push with upper body being used as a counterweight to hips to maintain position on the mid foot",
+      "Shin angle is maintained at 70-75 degrees at end of pole plant and the body is drawn forward and extended to high starting position to start cycle again"
     ),
     "Pole Plant" = c(
-      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
-      "torso leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating close to vertical pole plant",
+      "Torso leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
       "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
     )
   )
@@ -158,7 +158,7 @@ rubric_u16 <- list(
       "Less joint angle at force generation",
       "Body weight is stacked on the front half of the foot",
       "Pole tips apply maximum power approximately next to the foot",
-      "vertical movement of the COM is minimized throughout power position phase"
+      "Vertical movement of the COM is minimized throughout power position phase"
     ),
     "Power Line" = c(
       "Create a short amount of time between power lines",
@@ -184,7 +184,7 @@ rubric_u16 <- list(
       "Less joint angle at force generation",
       "Body weight is stacked on the front half of the foot",
       "Pole tips apply maximum power approximately next to the foot",
-      "vertical movement of the COM is minimized throughout power position phase"
+      "Vertical movement of the COM is minimized throughout power position phase"
     ),
     "Power Line" = c(
       "Create a short amount of time between power lines",
@@ -210,7 +210,7 @@ rubric_u16 <- list(
       "Less joint angle at force generation",
       "Body weight is stacked on the front half of the foot",
       "Pole tips apply maximum power approximately next to the foot",
-      "vertical movement of the COM is minimized throughout power position phase"
+      "Vertical movement of the COM is minimized throughout power position phase"
     ),
     "Power Line" = c(
       "Create a short amount of time between power lines",
