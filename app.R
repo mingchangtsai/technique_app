@@ -1,8 +1,9 @@
 
-# app_v34.R — CCBC Technique Checklist (GAS-served athletes; Shinylive-safe)
-# - Reads API_URL/API_KEY from app_config.R or environment variables
-# - Loads athlete list from Google Apps Script doGet?action=athletes (server holds secrets)
-# - Keeps Google Apps Script backend for saving/replace
+# app_v36.R — CCBC Technique Checklist
+# - Athlete names: prefer GAS doGet?action=athletes_sheet (reads "athletes" tab, Name column)
+#                  fall back to doGet?action=athletes (unique names from main sheet)
+# - Visible status during loading & saving (status pills at top)
+# - Same rubric content as v35
 
 library(shiny)
 library(DT)
@@ -15,7 +16,6 @@ suppressWarnings(suppressPackageStartupMessages(library(shinyWidgets)))
 `%||%` <- function(a, b) if (!is.null(a) && length(a) > 0 && nzchar(as.character(a)[1])) a else b
 
 # ===================== CONFIG LOAD =====================
-# Either provide app_config.R with API_URL, API_KEY, or set env vars API_URL, API_KEY
 cfg_path <- "app_config.R"
 if (file.exists(cfg_path)) {
   source(cfg_path, local = TRUE)
@@ -34,10 +34,10 @@ cap_first <- function(s) {
   ifelse(is.na(s) | nchar(s) == 0, s, paste0(toupper(substr(s,1,1)), substring(s,2)))
 }
 
-age_groups  <- c("BC Ski (T2W)", "BC Dev (L2C)")   # "Team" labels
+age_groups  <- c("BC Ski (T2W)", "BC Dev (L2C)")
 sex_choices <- c("Male","Female")
 
-# --------- Rubrics (from your latest version) ----------
+# --------- Rubrics (same as v35) ----------
 rubric <- list(
   "Offset" = list(
     "Power Position" = c(
@@ -210,9 +210,8 @@ rubric_u16 <- list(
     ),
     "Pole Plant" = c(
       "Elbows flexed in a strong starting position at 80-100 degrees",
-      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant",
-      "Establish \"standing tall\" position to create optimal power transfer with COM in front of feet"
+      "Body leans forward with poles ready to be set down vertically (dependant on ground speed)",
+      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
     ),
     "Leg Kick/Push" = c(
       "Upper body and leg flexes/decends at similar time (curtsy movement or commonly called preload)",
@@ -254,6 +253,10 @@ ui <- fluidPage(
       input[type=number] { -moz-appearance: textfield; }
       .score-invalid { border-color: #dc3545 !important; box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25); }
       .score-warn { margin-top: 4px; }
+      .status-pill { display:inline-block; padding:2px 8px; border-radius:12px; font-size:12px; margin-left:6px;}
+      .pill-loading { background:#fff3cd; color:#8a6d3b; border:1px solid #ffe8a1; }
+      .pill-ok { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+      .pill-error { background:#f8d7da; color:#721c24; border:1px solid #f5c6cb; }
     ")),
     tags$script(HTML("
       Shiny.addCustomMessageHandler('gas_fetch', async (msg) => {
@@ -309,6 +312,9 @@ ui <- fluidPage(
     column(6, div(style = "text-align:right;", tags$img(src = "CCBC.jpg", height = "80px", style = "padding:10px;")))
   ),
   titlePanel("CCBC Technique Checklist"),
+  # fluidRow(
+  #   column(12, htmlOutput("global_status"))
+  # ),
   sidebarLayout(
     sidebarPanel(
       selectizeInput("athlete", "Athlete name",
@@ -332,7 +338,7 @@ ui <- fluidPage(
     mainPanel(
       uiOutput("ui_subtech"),
       hr(),
-      h4("Recent submissions (latest 10)"),
+      h4("Last 10 Submissions"),
       DTOutput("tbl_recent")
     )
   )
@@ -379,6 +385,8 @@ gas_post <- function(session, action, rows = NULL, record_key = NULL, inputId) {
 
 server <- function(input, output, session) {
 
+  rv <- reactiveValues(loading_all = TRUE, loading_names = TRUE, saving = FALSE, load_error = NULL, names_error = NULL)
+
   master_df <- reactiveVal(
     tibble::tibble(
       Athlete = character(), Sex = character(), Age_Group = character(), Date = character(),
@@ -387,13 +395,27 @@ server <- function(input, output, session) {
     )
   )
 
-  # Load all rows (for prefill + recent) and the ATHLETES list from GAS
+  output$global_status <- renderUI({
+    pills <- list()
+    if (rv$loading_all) pills <- c(pills, span(class="status-pill pill-loading", "Loading data…"))
+    if (!rv$loading_all && is.null(rv$load_error)) pills <- c(pills, span(class="status-pill pill-ok", "Data ready"))
+    if (!is.null(rv$load_error)) pills <- c(pills, span(class="status-pill pill-error", paste("Load error:", rv$load_error)))
+    if (rv$loading_names) pills <- c(pills, span(class="status-pill pill-loading", "Loading athlete names…"))
+    if (!rv$loading_names && is.null(rv$names_error)) pills <- c(pills, span(class="status-pill pill-ok", "Names ready"))
+    if (!is.null(rv$names_error)) pills <- c(pills, span(class="status-pill pill-error", paste("Names error:", rv$names_error)))
+    if (rv$saving) pills <- c(pills, span(class="status-pill pill-loading", "Saving…"))
+    do.call(tagList, pills)
+  })
+
+  # Load all rows (for prefill + recent)
   observeEvent(TRUE, {
+    rv$loading_all <- TRUE
+    rv$load_error <- NULL
     gas_get(session, list(), "gas_all")
-    gas_get(session, list(action = "athletes"), "gas_athletes")
   }, once = TRUE)
 
   observeEvent(input$gas_all, {
+    rv$loading_all <- FALSE
     if (isTRUE(input$gas_all$ok) && isTRUE(input$gas_all$data$ok)) {
       d <- input$gas_all$data$data
       if (length(d) > 0) {
@@ -402,19 +424,38 @@ server <- function(input, output, session) {
         master_df(master_df())
       }
     } else {
-      err <- input$gas_all$error
-      if (is.null(err)) err <- "unknown"
-      showNotification(paste("Load failed:", err), type = "error")
+      rv$load_error <- input$gas_all$error %||% input$gas_all$data$error %||% "unknown"
     }
   }, ignoreInit = TRUE)
 
-  output$athlete_hint <- renderUI(NULL)
-  observeEvent(input$gas_athletes, {
-    if (isTRUE(input$gas_athletes$ok) && isTRUE(input$gas_athletes$data$ok)) {
-      choices <- unlist(input$gas_athletes$data$data, use.names = FALSE)
+  # --------- Athlete names from Google Sheet 'athletes' (Name column) via GAS ---------
+  # First try action=athletes_sheet, else fall back to action=athletes
+  observeEvent(TRUE, {
+    rv$loading_names <- TRUE
+    rv$names_error <- NULL
+    gas_get(session, list(action = "athletes_sheet"), "gas_athletes_sheet")
+  }, once = TRUE)
+
+  observeEvent(input$gas_athletes_sheet, {
+    if (isTRUE(input$gas_athletes_sheet$ok) && isTRUE(input$gas_athletes_sheet$data$ok)) {
+      choices <- unlist(input$gas_athletes_sheet$data$data, use.names = FALSE)
       updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
-      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from server", length(choices))))
+      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from Google Sheet", length(choices))))
+      rv$loading_names <- FALSE
     } else {
+      # Fallback
+      gas_get(session, list(action = "athletes"), "gas_athletes_fallback")
+    }
+  }, ignoreInit = TRUE)
+
+  observeEvent(input$gas_athletes_fallback, {
+    rv$loading_names <- FALSE
+    if (isTRUE(input$gas_athletes_fallback$ok) && isTRUE(input$gas_athletes_fallback$data$ok)) {
+      choices <- unlist(input$gas_athletes_fallback$data$data, use.names = FALSE)
+      updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
+      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from database", length(choices))))
+    } else {
+      rv$names_error <- input$gas_athletes_fallback$error %||% input$gas_athletes_fallback$data$error %||% "unknown"
       output$athlete_hint <- renderUI(span(style="color:#c00;", "Could not load athlete names"))
     }
   }, ignoreInit = TRUE)
@@ -546,7 +587,7 @@ server <- function(input, output, session) {
         rows[[length(rows)+1]] <- data.frame(
           Athlete      = trimws(input$athlete),
           Sex          = input$sex_btn,
-          Age_Group    = input$age_btn,   # stored as chosen Team label
+          Age_Group    = input$age_btn,
           Date         = as.character(input$date),
           Submitted_At = as.character(Sys.time()),
           Subtechnique = st,
@@ -643,6 +684,8 @@ server <- function(input, output, session) {
       return(invisible(NULL))
     }
 
+    rv$saving <- TRUE
+    output$status <- renderText("Saving…")
     gas_post(session, action = "append", rows = out, inputId = "gas_save")
   })
 
@@ -658,6 +701,7 @@ server <- function(input, output, session) {
   }
 
   observeEvent(input$gas_save, {
+    rv$saving <- FALSE
     ok <- isTRUE(input$gas_save$ok) && isTRUE(input$gas_save$data$ok)
     if (ok) {
       output$status <- renderText("Saved to database")
@@ -695,10 +739,13 @@ server <- function(input, output, session) {
       Subtechnique = unique(out$Subtechnique)[1]
     )
 
+    rv$saving <- TRUE
+    output$status <- renderText("Saving…")
     gas_post(session, action = "replace", rows = out, record_key = key_vals, inputId = "gas_replace")
   })
 
   observeEvent(input$gas_replace, {
+    rv$saving <- FALSE
     ok <- isTRUE(input$gas_replace$ok) && isTRUE(input$gas_replace$data$ok)
     if (ok) {
       output$status <- renderText("Saved to database")
