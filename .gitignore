@@ -1,0 +1,16 @@
+# R / RStudio
+*.Rproj
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Shiny / builds
+docs/
+rsconnect/
+.quarto/
+.Rbuildignore
+
+# OS cruft
+.DS_Store
+Thumbs.db
