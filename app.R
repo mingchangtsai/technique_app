@@ -317,8 +317,8 @@ ui <- fluidPage(
     "))
   ),
   fluidRow(
-    column(6, tags$img(src = "CSIP.jpg", height = "120px", style = "padding:10px;")),
-    column(6, div(style = "text-align:right;", tags$img(src = "CCBC.jpg", height = "120px", style = "padding:10px;")))
+    column(6, tags$img(src = "CSIP.jpg", height = "100px", style = "padding:10px;")),
+    column(6, div(style = "text-align:right;", tags$img(src = "CCBC.jpg", height = "100px", style = "padding:10px;")))
   ),
   titlePanel("CCBC Technique Checklist"),
   # fluidRow(
