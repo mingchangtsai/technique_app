@@ -16,24 +16,24 @@ suppressWarnings(suppressPackageStartupMessages(library(shinyWidgets)))
 `%||%` <- function(a, b) if (!is.null(a) && length(a) > 0 && nzchar(as.character(a)[1])) a else b
 
 # ===================== CONFIG LOAD =====================
-# cfg_path <- "app_config.R"
-# if (file.exists(cfg_path)) {
-#   source(cfg_path, local = TRUE)
-# }
-# API_URL <- get0("API_URL", inherits = FALSE) %||% Sys.getenv("API_URL", "")
-# API_KEY <- get0("API_KEY", inherits = FALSE) %||% Sys.getenv("API_KEY", "")
-# if (!nzchar(API_URL) || !nzchar(API_KEY)) {
-#   stop("Missing API_URL or API_KEY. Create app_config.R (git-ignored) or set environment variables.")
-# }
+cfg_path <- "app_config.R"
+if (file.exists(cfg_path)) {
+  source(cfg_path, local = TRUE)
+}
+API_URL <- get0("API_URL", inherits = FALSE) %||% Sys.getenv("API_URL", "")
+API_KEY <- get0("API_KEY", inherits = FALSE) %||% Sys.getenv("API_KEY", "")
+if (!nzchar(API_URL) || !nzchar(API_KEY)) {
+  stop("Missing API_URL or API_KEY. Create app_config.R (git-ignored) or set environment variables.")
+}
 # =======================================================
 
 # ---- Config: read from environment (Posit Connect, .Renviron locally) ----
-API_URL <- Sys.getenv("CCBC_API_URL", unset = "")
-API_KEY <- Sys.getenv("CCBC_API_KEY", unset = "")
-
-if (!nzchar(API_URL) || !nzchar(API_KEY)) {
-  stop("Missing CCBC_API_URL or CCBC_API_KEY environment variables.")
-}
+# API_URL <- Sys.getenv("CCBC_API_URL", unset = "")
+# API_KEY <- Sys.getenv("CCBC_API_KEY", unset = "")
+# 
+# if (!nzchar(API_URL) || !nzchar(API_KEY)) {
+#   stop("Missing CCBC_API_URL or CCBC_API_KEY environment variables.")
+# }
 
 
 safe_id <- function(x) gsub("[^A-Za-z0-9_]", "_", x)
@@ -317,8 +317,8 @@ ui <- fluidPage(
     "))
   ),
   fluidRow(
-    column(6, tags$img(src = "CSIP.jpg", height = "80px", style = "padding:10px;")),
-    column(6, div(style = "text-align:right;", tags$img(src = "CCBC.jpg", height = "80px", style = "padding:10px;")))
+    column(6, tags$img(src = "CSIP.jpg", height = "120px", style = "padding:10px;")),
+    column(6, div(style = "text-align:right;", tags$img(src = "CCBC.jpg", height = "120px", style = "padding:10px;")))
   ),
   titlePanel("CCBC Technique Checklist"),
   # fluidRow(
@@ -449,7 +449,7 @@ server <- function(input, output, session) {
     if (isTRUE(input$gas_athletes_sheet$ok) && isTRUE(input$gas_athletes_sheet$data$ok)) {
       choices <- unlist(input$gas_athletes_sheet$data$data, use.names = FALSE)
       updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
-      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from Google Sheet", length(choices))))
+      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from database", length(choices))))
       rv$loading_names <- FALSE
     } else {
       # Fallback
