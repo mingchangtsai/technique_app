@@ -449,7 +449,7 @@ server <- function(input, output, session) {
     if (isTRUE(input$gas_athletes_sheet$ok) && isTRUE(input$gas_athletes_sheet$data$ok)) {
       choices <- unlist(input$gas_athletes_sheet$data$data, use.names = FALSE)
       updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
-      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from Google Sheet", length(choices))))
+      output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from database", length(choices))))
       rv$loading_names <- FALSE
     } else {
       # Fallback
