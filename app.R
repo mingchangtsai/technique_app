@@ -43,110 +43,101 @@ cap_first <- function(s) {
   ifelse(is.na(s) | nchar(s) == 0, s, paste0(toupper(substr(s,1,1)), substring(s,2)))
 }
 
-age_groups  <- c("BC Ski (T2W)", "BC Dev (L2C)")
+age_groups  <- c("BC Ski (T2T)", "BC Dev (L2C)")
 sex_choices <- c("Male","Female")
 
 # --------- Rubrics (same as v35) ----------
 rubric <- list(
   "Offset" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
-      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
-      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+      "Shin, torso and forearm angle are at appropriate angle to terrain and approximately the same angle",
+      "Body weight is stacked on the front half of the foot while the knee drives the COM forward",
+      "Pole are loaded appropriately with body mass as the pole tips pass the foot"
     ),
     "Power Line" = c(
       "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
       "Create a short amount of time between power lines",
-      "Power line is maintained until force creation is started"
-    ),
-    "Ski Lift" = c(
-      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
-      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+      "Power line is achieved on each leg with knee aligned over ski"
     ),
     "Pole Plant" = c(
-      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
-      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Elbows and shoulders flexed in a strong starting position at 70-90 degrees and both arms are approximately the same height and",
+      "Body maintains a slightly forward position with poles ready to be set down vertically (dependant on ground speed)",
+      "Skier is coming from high body position and getting the poles up to prepare for pole plant"
     ),
-    "Reposition Phase" = c(
-      "Arms return fast enough to have time to place poles in a vertical angle if needed",
-      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+    "Leg Kick/Push" = c(
+      "Different force is created throughout movement cycle (greater force during force creation phase)",
+      "Creation of a power & quick impulse starts under COM",
+      "Ground force from kick leg moves the body forward and not laterally onto the glide ski"
+    ),
+    "Reposition" = c(
+      "Arms return fast enough to have time for pole force to be applied fully in direction of travel",
+      "A preparation phase before each pole plant allowing shoulders to drop and set before pole plant"
     )
   ),
   "One-Skate" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
-      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
-      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+      "Shin, torso and forearm angle are at appropriate angle to terrain and approximately the same angle",
+      "Body weight is stacked on the front half of the foot",
+      "Poles are loaded appropriately with body mass as the pole tips pass the foot"
     ),
     "Power Line" = c(
-      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
-      "Create a short amount of time between power lines",
-      "Power line is maintained until force creation is started"
-    ),
-    "Ski Lift" = c(
-      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
-      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+      "Knee is driven forward on glide ski to maintain forward momentum created from the kick ski",
+      "The push off the leg is forward and off the forefoot to create forward propulsion",
+      "Power line is maintained until skier chooses to switch skis in a purposeful manner"
     ),
     "Pole Plant" = c(
-      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating  close to vertical pole plant",
+      "Elbows and shoulders flexed in a strong starting position at 80-90 degrees",
       "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Skier is starting from a high body position"
     ),
     "Leg Kick/Push" = c(
-      "Different force is created throughout movement cycle (greater force during force creation phase)",
-      "Creation of a power & impulse starts under  COM and leaves the ground in a timely manner for grade and snow condition",
-      "Ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+      "Creation of a power & impulse starts under COM and leaves the ground in a timely manner for grade and snow condition",
+      "Kick initiates forward acceleration by kicking back and off the forefoot while maintaining hip stability"
     ),
-    "Reposition Phase" = c(
+    "Reposition" = c(
       "Arms return fast enough to have time to place poles in a vertical angle if needed",
-      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+      "Arms return in a relaxed smooth motion before pole plant occurs"
     )
   ),
   "Diagonal Stride" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are  at appropriate angle to terrain and approximately the same angle",
-      "Body weight is stacked on the front half of the foot while driving the tip of ski in before or at a similar time as the rear of the ski",
-      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+      "Upperbody and knee drive descends at the same time to load skis",
+      "Body weight is stacked on the front half of the foot throughout PP",
+      "Pole tips apply maximum power approximately next to the foot"
     ),
     "Power Line" = c(
-      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
-      "Create a short amount of time between power lines",
-      "Power line is maintained until force creation is started"
-    ),
-    "Ski Lift" = c(
-      "Skier is choosing to switch skis in purposeful manner and not falling onto other side",
-      "The weight is fully over the glide leg and kick leg raises into the air (only one ski on ground at a time)"
+      "No lateral flexion or torsion in the lower or upper body (ie. core stability, glu weakness)",
+      "Power line is maintained throughout power transfer through hip, knee, and foot in a linear motion"
     ),
     "Pole Plant" = c(
-      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating close to vertical pole plant",
-      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Elbows flexed in a strong starting position at 70-90 degrees",
+      "Body leans slightly forward as pole is placed on the ground and loaded with torso flexion",
+      "Poles are in a position to apply appropriate angle and force for terrain"
     ),
     "Leg Kick/Push" = c(
-      "Different force is created throughout movement cycle (greater force during force creation phase)",
-      "Creation of a power & impulse starts under COM and leaves the ground in a timely manner for grade and snow condition",
-      "Ground force from kick leg moves the body forward onto the glide ski. (not up or to the side)"
+      "Kick is initiated by the full body (back, legs, trunk, and arms)",
+      "When the kick leaves the ground, the torso and leg are in straight line (180 degrees)",
+      "Ground force from kick leg moves the body forward onto the glide ski"
     ),
     "Reposition Phase" = c(
-      "Arms return fast enough to have time to place poles in a vertical angle if needed",
-      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs"
+      "Arms return fast enough to have time to place poles in a vertical angle and body to extend",
+      "Torso maintains forward lean throughout reposition phase"
     )
   ),
   "Double Pole" = list(
     "Power Position" = c(
-      "High starting position with aggressive body angle of 70-75 degrees",
-      "Knee and torso flexion initiates the drive forward  to load the poles in high speed movement",
-      "Poles are adequatly loaded after the stretch shortening cycle of arms in direction of travel"
-    ),
-    "Reposition Phase" = c(
-      "Body is balanced (COM) on mid foot at end of pole push with upper body being used as a counterweight to hips to maintain position on the mid foot",
-      "Shin angle is maintained at 70-75 degrees at end of pole plant and the body is drawn forward and extended to high starting position to start cycle again"
+      "Pole tips apply maximum power approximately next to the foot and just after the stretch shortening cycle of the arms",
+      "Knee and torso flexion initiates the drive forward to load the poles",
+      "Poles are adequatly loaded to start the power position"
     ),
     "Pole Plant" = c(
       "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating close to vertical pole plant",
-      "Torso leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
+      "Torso draws slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "High starting position to initiate pole plant with forefoot pressure"
+    ),
+    "Reposition Phase" = c(
+      "Reposition motion is fast recovery motion with arms from hips to ready position. Body moves forward from a 70-75 degrees shin angle",
+      "Shin angle is maintained at 70-75 degrees at end of pole plant"
     )
   )
 )
@@ -155,98 +146,99 @@ rubric_u16 <- list(
   "Offset" = list(
     "Power Position" = c(
       "Shin, torso and forearm angle are approximately the same angle",
-      "Less joint angle at force generation",
-      "Body weight is stacked on the front half of the foot",
-      "Pole tips apply maximum power approximately next to the foot",
-      "Vertical movement of the COM is minimized throughout power position phase"
+      "Body weight is stacked on the front half of the foot while the knee drives the COM forward over foot",
+      "Poles are loaded maximally with COM rotating forward and across as the pole tips pass the foot"
     ),
     "Power Line" = c(
-      "Create a short amount of time between power lines",
-      "Fully balanced on each leg",
-      "No lateral flexion in the lower or upper body (ie. core stability,glut weakness)"
+      "Knee is driven forward over glide ski to initiate forward momentum from the kick ski",
+      "The ability to create a short amount of time between power lines with focus on power leg to power arm impulse",
+      "Power line is maintained until force creation is started"
     ),
     "Pole Plant" = c(
-      "Elbows flexed in a strong starting position at 80-100 degrees",
-      "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant",
-      "Establish \"standing tall\" position to create optimal power transfer with COM in front of feet"
+      "Both elbows and shoulders are flexed in a strong starting position at 70-90 degrees creating similar power application on both poles",
+      "Body maintains slightly forward with poles ready to be set down vertically (dependant on ground speed)",
+      "Skier is coming from a high body position and getting the poles up to prepare for pole plant"
     ),
     "Leg Kick/Push" = c(
-      "Upper body and leg flexes/decends at similar time (curtsy movement or commonly called preload)",
-      "Different force is created throughout movement cycle (greater force during force creation phase)",
-      "Create a short power impulse under COM for kick leg as weight is shifted to glide ski",
-      "Kick initiation (impulse) finishes as toe passes heal of glide ski"
+      "Kicking leg extends in direction of travel to match the forward torso angle in a straight line just after poles are maximally loaded",
+      "As kick leg leaves the ground a straight line can be drawn through torso and leg in a 70 degrees angle to the ground",
+      "Gound force from kick leg moves the body forward onto the glide ski in a forefoot pressure position with knee flexed in 60-80 degrees"
+    ),
+    "Reposition" = c(
+      "Arms return fast and maintain pole angle to minimize cycle time",
+      "A preparation phase before each pole plant allowing shoulders to drop and set before poles are loaded",
+      "The cycle is smooth and efficient"
     )
   ),
   "One-Skate" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are approximately the same angle",
-      "Less joint angle at force generation",
-      "Body weight is stacked on the front half of the foot",
-      "Pole tips apply maximum power approximately next to the foot",
-      "Vertical movement of the COM is minimized throughout power position phase"
+      "Shin and torso angle are approximately 70-75 degrees at peak of power position (torso can be flexed more)",
+      "Body weight is balanced on the forefront of the foot during the power initiation off the kick ski",
+      "Pole tips apply maximum power approximately next to the foot just after stretch shortening cycle of arms"
     ),
     "Power Line" = c(
-      "Create a short amount of time between power lines",
-      "Fully balanced on each leg",
-      "No lateral flexion in the lower or upper body (ie. core stability,glut weakness)"
+      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski while maintaining COM on the mid foot",
+      "The ability to create a short amount of time between power lines",
+      "Power line is maintained until skier chooses to switch skis in a purposeful manner"
     ),
     "Pole Plant" = c(
-      "Elbows flexed in a strong starting position at 80-100 degrees",
+      "Elbows and shoulders flexed in a strong starting position at 80-100 degrees creating close to vertical pole plan",
       "Body leans slightly forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant",
-      "Establish \"standing tall\" position to create optimal power transfer with COM in front of feet"
+      "Skier is starting from a high body position, getting the arms/poles quickly for pole plant"
     ),
     "Leg Kick/Push" = c(
-      "Upper body and leg flexes/decends at similar time (curtsy movement or commonly called preload)",
-      "Different force is created throughout movement cycle (greater force during force creation phase)",
-      "Create a short power impulse under COM for kick leg as weight is shifted to glide ski",
-      "Kick initiation (impulse) finishes as toe passes heal of glide ski"
+      "Kick leg is momentarily left at full extension (straight line from shoulder to foot) before reposition phase",
+      "As kick leg leaves the ground a torso and shin angle are maintained at 70 degrees angle to the ground",
+      "Ground force from kick leg moves the body forward and up onto the glide ski while maintaining hip stability"
+    ),
+    "Reposition" = c(
+      "Arms return slightly faster than the upper body bringing the poles to an angle that promotes forward momentum",
+      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs",
+      "High speed torso and arm recovery speed"
     )
   ),
   "Diagonal Stride" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are approximately the same angle",
-      "Less joint angle at force generation",
-      "Body weight is stacked on the front half of the foot",
-      "Pole tips apply maximum power approximately next to the foot",
-      "Vertical movement of the COM is minimized throughout power position phase"
+      "Elbows and shoulders flexed in a strong starting position 70-90 degrees creating close to vertical pole plant",
+      "Body weight is stacked on the forefront of the foot as knee preloads the legs before ground force is created",
+      "Body maintains slight forward angle at pole plant and torso flexion is delayed until power position is reached"
     ),
     "Power Line" = c(
-      "Create a short amount of time between power lines",
-      "Fully balanced on each leg",
-      "No lateral flexion in the lower or upper body (ie. core stability,glut weakness)"
+      "Knee is driven forward on glide ski to initiate forward momentum from the kick ski",
+      "Both power creation and time between power lines can be created in a short amount of time (high impulse)",
+      "Power line is maintained until force creation is started"
     ),
     "Pole Plant" = c(
-      "Elbows flexed in a strong starting position at 80-100 degrees",
-      "Body leans forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Elbows and shoulders flexed in a strong starting position 70-90 degrees creating close to vertical pole plant",
+      "Body leans slightly forward as poles is placed on the ground and loaded with intentional torso flexion",
+      "Skier is coming from an upright body position and the poles are in a position to apply necessary power"
     ),
     "Leg Kick/Push" = c(
-      "Upper body and leg flexes/decends at similar time (curtsy movement or commonly called preload)",
-      "Different force is created throughout movement cycle (greater force during force creation phase)",
-      "Create a short power impulse under COM for kick leg as weight is shifted to glide ski",
-      "Kick initiation (impulse) finishes as toe passes heal of glide ski"
+      "Different force and limb speed is created throughout movement cycle",
+      "Creation of a power & impulse under COM and leaves the ground in a timely manner for grade and snow condition",
+      "Ground force from kick leg moves the body forward and up into a balanced position with foot under COM"
+    ),
+    "Reposition" = c(
+      "Arm return slightly faster than the upper body bringing the poles to an angle that promotes forward momentum",
+      "A preparation phase before each pole plant allowing muscles to relax and set before pole plant occurs",
+      "Display a clear ability to change gear in diagonal stride"
     )
   ),
   "Double Pole" = list(
     "Power Position" = c(
-      "Shin, torso and forearm angle are approximately the same angle",
-      "Body weight is stacked on the front half of the foot",
-      "Maximum load on poles occurs under COM (beside foot)"
-    ),
-    "Power Line" = c(
-      "Knee and torso are driven forward to initiate power position and maintain forward COM",
-      "No lateral flexion in the lower or upper body (ie. core stability,glut weakness)"
+      "Pole tips apply maximum power approximately next to the foot with highest pole power applied in front of the foot at high speed and before the foot at slower spped",
+      "Knee and torso flexion initiates the drive forward to load the poles in high speed movement",
+      "Poles are adequately loaded after the stretch shortening cycle of arms in direction of travel"
     ),
     "Pole Plant" = c(
-      "Elbows flexed in a strong starting position at 80-100 degrees",
-      "Body leans forward with poles ready to be set down vertically (dependant on ground speed)",
-      "Skier is coming from an almost straight body position and getting the poles up to prepare for pole plant"
+      "Elbows and shoulders flexed in a strong starting position at 70-100 degrees, creating close to a vertical pole plant",
+      "Torso is drawn forward with abdominal muscles starting the initiation of the pole plant followed by the hip flexors",
+      "High starting position with aggressive body angle of 70-75 degrees"
     ),
     "Reposition Phase" = c(
-      "Arms return fast enough to have time to place poles in a vertical angle if needed",
-      "Arm is returned in a direct line to starting position"
+      "Body is balanced (COM) on mid foot at the end of pole push with upper body being used as a counterweight to hips to maintain position on the mid foot",
+      "Shin angle is maintain at 70-75 degrees at the end of pole plant where the body is drawn forward and extended to high starting position to start cycle again",
+      "High speed torso and arm recovery speed"
     )
   )
 )
