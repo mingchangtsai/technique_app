@@ -43,11 +43,11 @@ cap_first <- function(s) {
   ifelse(is.na(s) | nchar(s) == 0, s, paste0(toupper(substr(s,1,1)), substring(s,2)))
 }
 
-age_groups  <- c("BC Ski (T2T)", "BC Dev (L2C)")
+age_groups  <- c("BC Ski (L2C)", "BC Dev (T2T)")
 sex_choices <- c("Male","Female")
 
 # --------- Rubrics (same as v35) ----------
-rubric <- list(
+rubric_u16 <- list(
   "Offset" = list(
     "Power Position" = c(
       "Shin, torso and forearm angle are at appropriate angle to terrain and approximately the same angle",
@@ -119,7 +119,7 @@ rubric <- list(
       "When the kick leaves the ground, the torso and leg are in straight line (180 degrees)",
       "Ground force from kick leg moves the body forward onto the glide ski"
     ),
-    "Reposition Phase" = c(
+    "Reposition" = c(
       "Arms return fast enough to have time to place poles in a vertical angle and body to extend",
       "Torso maintains forward lean throughout reposition phase"
     )
@@ -135,14 +135,14 @@ rubric <- list(
       "Torso draws slightly forward with poles ready to be set down vertically (dependant on ground speed)",
       "High starting position to initiate pole plant with forefoot pressure"
     ),
-    "Reposition Phase" = c(
+    "Reposition" = c(
       "Reposition motion is fast recovery motion with arms from hips to ready position. Body moves forward from a 70-75 degrees shin angle",
       "Shin angle is maintained at 70-75 degrees at end of pole plant"
     )
   )
 )
 
-rubric_u16 <- list(
+rubric <- list(
   "Offset" = list(
     "Power Position" = c(
       "Shin, torso and forearm angle are approximately the same angle",
@@ -226,7 +226,7 @@ rubric_u16 <- list(
   ),
   "Double Pole" = list(
     "Power Position" = c(
-      "Pole tips apply maximum power approximately next to the foot with highest pole power applied in front of the foot at high speed and before the foot at slower spped",
+      "Pole tips apply maximum power approximately next to the foot with the highest pole power applied in front of the foot at high speeds and beside the foot at slower speeds",
       "Knee and torso flexion initiates the drive forward to load the poles in high speed movement",
       "Poles are adequately loaded after the stretch shortening cycle of arms in direction of travel"
     ),
@@ -235,9 +235,9 @@ rubric_u16 <- list(
       "Torso is drawn forward with abdominal muscles starting the initiation of the pole plant followed by the hip flexors",
       "High starting position with aggressive body angle of 70-75 degrees"
     ),
-    "Reposition Phase" = c(
+    "Reposition" = c(
       "Body is balanced (COM) on mid foot at the end of pole push with upper body being used as a counterweight to hips to maintain position on the mid foot",
-      "Shin angle is maintain at 70-75 degrees at the end of pole plant where the body is drawn forward and extended to high starting position to start cycle again",
+      "Shin angle is maintained at 70-75 degrees at the end of pole plant where the body is drawn forward and extended to high starting position to start cycle again",
       "High speed torso and arm recovery speed"
     )
   )
