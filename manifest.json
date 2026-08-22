@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "locale": "en_US",
+  "locale": "C",
   "platform": "4.4.0",
   "metadata": {
     "appmode": "shiny",
@@ -9,15 +9,42 @@
     "content_category": null,
     "has_parameters": false
   },
-  "environment": {
-    "r": {
-      "requires": "~=4.4.0"
-    }
-  },
   "packages": {
+    "DBI": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "DBI",
+        "Title": "R Database Interface",
+        "Version": "1.2.3",
+        "Date": "2024-06-02",
+        "Authors@R": "c(\n    person(\"R Special Interest Group on Databases (R-SIG-DB)\", role = \"aut\"),\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"R Consortium\", role = \"fnd\")\n  )",
+        "Description": "A database interface definition for communication between R\n    and relational database management systems.  All classes in this\n    package are virtual and need to be extended by the various R/DBMS\n    implementations.",
+        "License": "LGPL (>= 2.1)",
+        "URL": "https://dbi.r-dbi.org, https://github.com/r-dbi/DBI",
+        "BugReports": "https://github.com/r-dbi/DBI/issues",
+        "Depends": "methods, R (>= 3.0.0)",
+        "Suggests": "arrow, blob, covr, DBItest, dbplyr, downlit, dplyr, glue,\nhms, knitr, magrittr, nanoarrow (>= 0.3.0.1), RMariaDB,\nrmarkdown, rprojroot, RSQLite (>= 1.1-2), testthat (>= 3.0.0),\nvctrs, xml2",
+        "VignetteBuilder": "knitr",
+        "Config/autostyle/scope": "line_breaks",
+        "Config/autostyle/strict": "false",
+        "Config/Needs/check": "r-dbi/DBItest",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.1",
+        "Config/Needs/website": "r-dbi/DBItest, r-dbi/dbitemplate, adbi,\nAzureKusto, bigrquery, DatabaseConnector, dittodb, duckdb,\nimplyr, lazysf, odbc, pool, RAthena, IMSMWU/RClickhouse, RH2,\nRJDBC, RMariaDB, RMySQL, RPostgres, RPostgreSQL, RPresto,\nRSQLite, sergeant, sparklyr, withr",
+        "Config/testthat/edition": "3",
+        "NeedsCompilation": "no",
+        "Packaged": "2024-06-02 20:26:05 UTC; kirill",
+        "Author": "R Special Interest Group on Databases (R-SIG-DB) [aut],\n  Hadley Wickham [aut],\n  Kirill Müller [aut, cre] (<https://orcid.org/0000-0002-1416-3412>),\n  R Consortium [fnd]",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-06-02 21:50:02 UTC",
+        "Built": "R 4.4.0; ; 2024-06-05 02:08:50 UTC; unix"
+      }
+    },
     "DT": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "DT",
         "Type": "Package",
@@ -44,7 +71,7 @@
     },
     "R6": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "R6",
         "Title": "Encapsulated Classes with Reference Semantics",
@@ -69,9 +96,52 @@
         "Built": "R 4.4.1; ; 2025-02-15 00:56:23 UTC; unix"
       }
     },
+    "RPostgres": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "RPostgres",
+        "Title": "C++ Interface to PostgreSQL",
+        "Version": "1.4.10",
+        "Date": "2026-02-11",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Jeroen\", \"Ooms\", role = \"aut\"),\n    person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-1416-3412\")),\n    person(\"RStudio\", role = \"cph\"),\n    person(\"R Consortium\", role = \"fnd\"),\n    person(\"Tomoaki\", \"Nishiyama\", role = \"ctb\",\n           comment = \"Code for encoding vectors into strings derived from RPostgreSQL\")\n  )",
+        "Description": "Fully DBI-compliant C++-backed interface to PostgreSQL\n    <https://www.postgresql.org/>, an open-source relational database.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://rpostgres.r-dbi.org, https://github.com/r-dbi/RPostgres",
+        "BugReports": "https://github.com/r-dbi/RPostgres/issues",
+        "Depends": "R (>= 3.1.0)",
+        "Imports": "bit64, blob (>= 1.2.0), DBI (>= 1.2.0), hms (>= 1.0.0),\nlubridate, methods, withr",
+        "Suggests": "callr, covr, DBItest (>= 1.7.3), knitr, rlang, rmarkdown,\ntestthat (>= 3.0.0)",
+        "LinkingTo": "cpp11",
+        "Config/Needs/website": "r-dbi/dbitemplate",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/build": "decor",
+        "Config/autostyle/scope": "line_breaks",
+        "Config/autostyle/strict": "false",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "LazyLoad": "true",
+        "RoxygenNote": "7.3.3.9000",
+        "SystemRequirements": "libpq >= 9.0: libpq-dev (deb) or postgresql-devel\n(rpm)",
+        "Collate": "'PqDriver.R' 'PqConnection.R' 'PqResult.R' 'RPostgres-pkg.R'\n'Redshift.R' 'cpp11.R' 'dbAppendTable_PqConnection.R'\n'dbBegin_PqConnection.R' 'dbBind_PqResult.R'\n'dbClearResult_PqResult.R' 'dbColumnInfo_PqResult.R'\n'dbCommit_PqConnection.R' 'dbConnect_PqDriver.R'\n'dbConnect_RedshiftDriver.R' 'dbDataType_PqConnection.R'\n'dbDataType_PqDriver.R' 'dbDisconnect_PqConnection.R'\n'dbExistsTable_PqConnection_Id.R'\n'dbExistsTable_PqConnection_character.R' 'dbFetch_PqResult.R'\n'dbGetInfo_PqConnection.R' 'dbGetInfo_PqDriver.R'\n'dbGetRowCount_PqResult.R' 'dbGetRowsAffected_PqResult.R'\n'dbGetStatement_PqResult.R' 'dbHasCompleted_PqResult.R'\n'dbIsValid_PqConnection.R' 'dbIsValid_PqDriver.R'\n'dbIsValid_PqResult.R' 'dbListFields_PqConnection_Id.R'\n'dbListFields_PqConnection_character.R'\n'dbListObjects_PqConnection_ANY.R'\n'dbListTables_PqConnection.R'\n'dbQuoteIdentifier_PqConnection_Id.R'\n'dbQuoteIdentifier_PqConnection_SQL.R'\n'dbQuoteIdentifier_PqConnection_character.R'\n'dbQuoteLiteral_PqConnection.R'\n'dbQuoteString_PqConnection_SQL.R'\n'dbQuoteString_PqConnection_character.R'\n'dbReadTable_PqConnection_character.R'\n'dbRemoveTable_PqConnection_character.R'\n'dbRollback_PqConnection.R' 'dbSendQuery_PqConnection.R'\n'dbUnloadDriver_PqDriver.R'\n'dbUnquoteIdentifier_PqConnection_SQL.R'\n'dbWriteTable_PqConnection_character_data.frame.R' 'default.R'\n'export.R' 'quote.R' 'show_PqConnection.R'\n'sqlData_PqConnection.R' 'tables.R' 'transactions.R' 'utils.R'",
+        "NeedsCompilation": "yes",
+        "Packaged": "2026-02-15 18:54:00 UTC; kirill",
+        "Author": "Hadley Wickham [aut],\n  Jeroen Ooms [aut],\n  Kirill Müller [aut, cre] (ORCID:\n    <https://orcid.org/0000-0002-1416-3412>),\n  RStudio [cph],\n  R Consortium [fnd],\n  Tomoaki Nishiyama [ctb] (Code for encoding vectors into strings derived\n    from RPostgreSQL)",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-02-16 10:30:09 UTC",
+        "Built": "R 4.4.3; aarch64-apple-darwin20; 2026-02-16 13:51:17 UTC; unix",
+        "Archs": "RPostgres.so.dSYM",
+        "RemoteType": "standard",
+        "RemotePkgRef": "RPostgres",
+        "RemoteRef": "RPostgres",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.4.10"
+      }
+    },
     "Rcpp": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "Rcpp",
         "Title": "Seamless R and C++ Integration",
@@ -99,7 +169,7 @@
     },
     "askpass": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "askpass",
         "Type": "Package",
@@ -125,9 +195,32 @@
         "Archs": "askpass.so.dSYM"
       }
     },
+    "assertthat": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "assertthat",
+        "Title": "Easy Pre and Post Assertions",
+        "Version": "0.2.1",
+        "Authors@R": "\n  person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", c(\"aut\", \"cre\"))",
+        "Description": "An extension to stopifnot() that makes it easy to declare \n    the pre and post conditions that you code should satisfy, while also \n    producing friendly error messages so that your users know what's gone\n    wrong.",
+        "License": "GPL-3",
+        "Imports": "tools",
+        "Suggests": "testthat, covr",
+        "RoxygenNote": "6.0.1",
+        "Collate": "'assert-that.r' 'on-failure.r' 'assertions-file.r'\n'assertions-scalar.R' 'assertions.r' 'base.r'\n'base-comparison.r' 'base-is.r' 'base-logical.r' 'base-misc.r'\n'utils.r' 'validate-that.R'",
+        "NeedsCompilation": "no",
+        "Packaged": "2019-03-21 13:11:01 UTC; hadley",
+        "Author": "Hadley Wickham [aut, cre]",
+        "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2019-03-21 14:53:46 UTC",
+        "Built": "R 4.4.0; ; 2024-04-05 15:28:09 UTC; unix"
+      }
+    },
     "base64enc": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "base64enc",
         "Version": "0.1-3",
@@ -149,7 +242,7 @@
     },
     "bit": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "bit",
         "Title": "Classes and Methods for Fast Memory-Efficient Boolean Selections",
@@ -178,7 +271,7 @@
     },
     "bit64": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "bit64",
         "Title": "A S3 Class for Vectors of 64bit Integers",
@@ -206,9 +299,37 @@
         "Archs": "bit64.so.dSYM"
       }
     },
+    "blob": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "blob",
+        "Title": "A Simple S3 Class for Representing Vectors of Binary Data\n('BLOBS')",
+        "Version": "1.2.4",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", role = \"aut\"),\n    person(\"Kirill\", \"Müller\", , \"kirill@cynkra.com\", role = \"cre\"),\n    person(\"RStudio\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "R's raw vector is useful for storing a single binary object.\n    What if you want to put a vector of them in a data frame? The 'blob'\n    package provides the blob object, a list of raw vectors, suitable for\n    use as a column in data frame.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://blob.tidyverse.org, https://github.com/tidyverse/blob",
+        "BugReports": "https://github.com/tidyverse/blob/issues",
+        "Imports": "methods, rlang, vctrs (>= 0.2.1)",
+        "Suggests": "covr, crayon, pillar (>= 1.2.1), testthat",
+        "Config/autostyle/scope": "line_breaks",
+        "Config/autostyle/strict": "false",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2023-03-17 09:42:50 UTC; kirill",
+        "Author": "Hadley Wickham [aut],\n  Kirill Müller [cre],\n  RStudio [cph, fnd]",
+        "Maintainer": "Kirill Müller <kirill@cynkra.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-03-17 12:00:06 UTC",
+        "Built": "R 4.4.0; ; 2024-04-06 02:53:54 UTC; unix"
+      }
+    },
     "bslib": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "bslib",
         "Title": "Custom 'Bootstrap' 'Sass' Themes for 'shiny' and 'rmarkdown'",
@@ -241,7 +362,7 @@
     },
     "cachem": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "cachem",
         "Version": "1.1.0",
@@ -269,7 +390,7 @@
     },
     "cli": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "cli",
         "Title": "Helpers for Developing Command Line Interfaces",
@@ -296,38 +417,9 @@
         "Archs": "cli.so.dSYM"
       }
     },
-    "clipr": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Type": "Package",
-        "Package": "clipr",
-        "Title": "Read and Write from the System Clipboard",
-        "Version": "0.8.0",
-        "Authors@R": "c(\n    person(\"Matthew\", \"Lincoln\", , \"matthew.d.lincoln@gmail.com\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-4387-3384\")),\n    person(\"Louis\", \"Maddox\", role = \"ctb\"),\n    person(\"Steve\", \"Simpson\", role = \"ctb\"),\n    person(\"Jennifer\", \"Bryan\", role = \"ctb\")\n  )",
-        "Description": "Simple utility functions to read from and write to\n    the Windows, OS X, and X11 clipboards.",
-        "License": "GPL-3",
-        "URL": "https://github.com/mdlincoln/clipr,\nhttp://matthewlincoln.net/clipr/",
-        "BugReports": "https://github.com/mdlincoln/clipr/issues",
-        "Imports": "utils",
-        "Suggests": "covr, knitr, rmarkdown, rstudioapi (>= 0.5), testthat (>=\n2.0.0)",
-        "VignetteBuilder": "knitr",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.1.2",
-        "SystemRequirements": "xclip (https://github.com/astrand/xclip) or xsel\n(http://www.vergenet.net/~conrad/software/xsel/) for accessing\nthe X11 clipboard, or wl-clipboard\n(https://github.com/bugaevc/wl-clipboard) for systems using\nWayland.",
-        "NeedsCompilation": "no",
-        "Packaged": "2022-02-19 02:20:21 UTC; mlincoln",
-        "Author": "Matthew Lincoln [aut, cre] (<https://orcid.org/0000-0002-4387-3384>),\n  Louis Maddox [ctb],\n  Steve Simpson [ctb],\n  Jennifer Bryan [ctb]",
-        "Maintainer": "Matthew Lincoln <matthew.d.lincoln@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2022-02-22 00:58:45 UTC",
-        "Built": "R 4.4.0; ; 2024-04-05 15:02:37 UTC; unix"
-      }
-    },
     "commonmark": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "commonmark",
         "Type": "Package",
@@ -354,7 +446,7 @@
     },
     "cpp11": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "cpp11",
         "Title": "A C++11 Interface for R's C Interface",
@@ -383,7 +475,7 @@
     },
     "crayon": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "crayon",
         "Title": "Colored Terminal Output",
@@ -410,7 +502,7 @@
     },
     "crosstalk": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "crosstalk",
         "Type": "Package",
@@ -434,39 +526,9 @@
         "Built": "R 4.4.0; ; 2024-04-05 22:34:09 UTC; unix"
       }
     },
-    "curl": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "curl",
-        "Type": "Package",
-        "Title": "A Modern and Flexible Web Client for R",
-        "Version": "6.2.2",
-        "Authors@R": "c(\n    person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n      comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Hadley\", \"Wickham\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = \"cph\"))",
-        "Description": "Bindings to 'libcurl' <https://curl.se/libcurl/> for performing fully\n    configurable HTTP/FTP requests where responses can be processed in memory, on\n    disk, or streaming via the callback or connection interfaces. Some knowledge\n    of 'libcurl' is recommended; for a more-user-friendly web client see the \n    'httr2' package which builds on this package with http specific tools and logic.",
-        "License": "MIT + file LICENSE",
-        "SystemRequirements": "libcurl (>= 7.62): libcurl-devel (rpm) or\nlibcurl4-openssl-dev (deb)",
-        "URL": "https://jeroen.r-universe.dev/curl",
-        "BugReports": "https://github.com/jeroen/curl/issues",
-        "Suggests": "spelling, testthat (>= 1.0.0), knitr, jsonlite, later,\nrmarkdown, httpuv (>= 1.4.4), webutils",
-        "VignetteBuilder": "knitr",
-        "Depends": "R (>= 3.0.0)",
-        "RoxygenNote": "7.3.2.9000",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-03-23 13:24:53 UTC; jeroen",
-        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Hadley Wickham [ctb],\n  Posit Software, PBC [cph]",
-        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-03-24 07:00:02 UTC",
-        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-03-24 07:15:24 UTC; unix",
-        "Archs": "curl.so.dSYM"
-      }
-    },
     "digest": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "digest",
         "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\",\n                    comment = c(ORCID = \"0000-0001-6419-907X\")),\n             person(\"Antoine\", \"Lucas\", role=\"ctb\"),\n             person(\"Jarek\", \"Tuszynski\", role=\"ctb\"),\n             person(\"Henrik\", \"Bengtsson\", role=\"ctb\", comment = c(ORCID = \"0000-0002-7579-5165\")),\n             person(\"Simon\", \"Urbanek\", role=\"ctb\", comment = c(ORCID = \"0000-0003-2297-1732\")),\n             person(\"Mario\", \"Frasca\", role=\"ctb\"),\n             person(\"Bryan\", \"Lewis\", role=\"ctb\"),\n             person(\"Murray\", \"Stokely\", role=\"ctb\"),\n             person(\"Hannes\", \"Muehleisen\", role=\"ctb\"),\n             person(\"Duncan\", \"Murdoch\", role=\"ctb\"),\n             person(\"Jim\", \"Hester\", role=\"ctb\"),\n             person(\"Wush\", \"Wu\", role=\"ctb\", comment = c(ORCID = \"0000-0001-5180-0567\")),\n             person(\"Qiang\", \"Kou\", role=\"ctb\", comment = c(ORCID = \"0000-0001-6786-5453\")),\n             person(\"Thierry\", \"Onkelinx\", role=\"ctb\", comment = c(ORCID = \"0000-0001-8804-4216\")),\n             person(\"Michel\", \"Lang\", role=\"ctb\", comment = c(ORCID = \"0000-0001-9754-0393\")),\n             person(\"Viliam\", \"Simko\", role=\"ctb\"),\n             person(\"Kurt\", \"Hornik\", role=\"ctb\", comment = c(ORCID = \"0000-0003-4198-9911\")),\n             person(\"Radford\", \"Neal\", role=\"ctb\", comment = c(ORCID = \"0000-0002-2473-3407\")),\n             person(\"Kendon\", \"Bell\", role=\"ctb\", comment = c(ORCID = \"0000-0002-9093-8312\")),\n             person(\"Matthew\", \"de Queljoe\", role=\"ctb\"),\n             person(\"Dmitry\", \"Selivanov\", role=\"ctb\"),\n             person(\"Ion\", \"Suruceanu\", role=\"ctb\"),\n             person(\"Bill\", \"Denney\", role=\"ctb\"),\n             person(\"Dirk\", \"Schumacher\", role=\"ctb\"),\n             person(\"András\", \"Svraka\", role=\"ctb\"),\n             person(\"Sergey\", \"Fedorov\", role=\"ctb\"),\n             person(\"Will\", \"Landau\", role=\"ctb\", comment = c(ORCID = \"0000-0003-1878-3253\")),\n             person(\"Floris\", \"Vanderhaeghe\", role=\"ctb\", comment = c(ORCID = \"0000-0002-6378-6229\")),\n             person(\"Kevin\", \"Tappe\", role=\"ctb\"),\n             person(\"Harris\", \"McGehee\", role=\"ctb\"),\n             person(\"Tim\", \"Mastny\", role=\"ctb\"),\n             person(\"Aaron\", \"Peikert\", role=\"ctb\", comment = c(ORCID = \"0000-0001-7813-818X\")),\n             person(\"Mark\", \"van der Loo\", role=\"ctb\", comment = c(ORCID = \"0000-0002-9807-4686\")),\n             person(\"Chris\", \"Muir\", role=\"ctb\", comment = c(ORCID = \"0000-0003-2555-3878\")),\n             person(\"Moritz\", \"Beller\", role=\"ctb\", comment = c(ORCID = \"0000-0003-4852-0526\")),\n             person(\"Sebastian\", \"Campbell\", role=\"ctb\"),\n             person(\"Winston\", \"Chang\", role=\"ctb\", comment = c(ORCID = \"0000-0002-1576-2126\")),\n             person(\"Dean\", \"Attali\", role=\"ctb\", comment = c(ORCID = \"0000-0002-5645-3493\")),\n             person(\"Michael\", \"Chirico\", role=\"ctb\", comment = c(ORCID = \"0000-0003-0787-087X\")),\n             person(\"Kevin\", \"Ushey\", role=\"ctb\"))",
@@ -494,7 +556,7 @@
     },
     "dplyr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "dplyr",
@@ -526,7 +588,7 @@
     },
     "evaluate": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "evaluate",
@@ -554,7 +616,7 @@
     },
     "fastmap": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "fastmap",
         "Title": "Fast Data Structures",
@@ -577,9 +639,37 @@
         "Archs": "fastmap.so.dSYM"
       }
     },
+    "filelock": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "filelock",
+        "Title": "Portable File Locking",
+        "Version": "1.0.3",
+        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Place an exclusive or shared lock on a file. It uses\n    'LockFile' on Windows and 'fcntl' locks on Unix-like systems.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://r-lib.github.io/filelock/,\nhttps://github.com/r-lib/filelock",
+        "BugReports": "https://github.com/r-lib/filelock/issues",
+        "Depends": "R (>= 3.4)",
+        "Suggests": "callr (>= 2.0.0), covr, testthat (>= 3.0.0)",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2023-12-11 01:12:05 UTC; gaborcsardi",
+        "Author": "Gábor Csárdi [aut, cre],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-12-11 04:40:02 UTC",
+        "Built": "R 4.4.0; aarch64-apple-darwin20; 2024-04-05 15:37:10 UTC; unix",
+        "Archs": "filelock.so.dSYM"
+      }
+    },
     "fontawesome": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "fontawesome",
@@ -608,7 +698,7 @@
     },
     "fs": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "fs",
         "Title": "Cross-Platform File System Operations Based on 'libuv'",
@@ -642,7 +732,7 @@
     },
     "generics": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "generics",
         "Title": "Common S3 Generics not Provided by Base R Methods Related to\nModel Fitting",
@@ -670,7 +760,7 @@
     },
     "glue": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "glue",
         "Title": "Interpreted String Literals",
@@ -701,7 +791,7 @@
     },
     "highr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "highr",
         "Type": "Package",
@@ -729,7 +819,7 @@
     },
     "hms": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "hms",
         "Title": "Pretty Time of Day",
@@ -759,7 +849,7 @@
     },
     "htmltools": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "htmltools",
@@ -791,7 +881,7 @@
     },
     "htmlwidgets": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "htmlwidgets",
@@ -819,66 +909,46 @@
     },
     "httpuv": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "httpuv",
         "Title": "HTTP and WebSocket Server Library",
-        "Version": "1.6.16",
-        "Authors@R": "c(\n    person(\"Joe\", \"Cheng\", , \"joe@posit.co\", role = \"aut\"),\n    person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit, PBC\", \"fnd\", role = \"cph\"),\n    person(\"Hector\", \"Corrada Bravo\", role = \"ctb\"),\n    person(\"Jeroen\", \"Ooms\", role = \"ctb\"),\n    person(\"Andrzej\", \"Krzemienski\", role = \"cph\",\n           comment = \"optional.hpp\"),\n    person(\"libuv project contributors\", role = \"cph\",\n           comment = \"libuv library, see src/libuv/AUTHORS file\"),\n    person(\"Joyent, Inc. and other Node contributors\", role = \"cph\",\n           comment = \"libuv library, see src/libuv/AUTHORS file; and http-parser library, see src/http-parser/AUTHORS file\"),\n    person(\"Niels\", \"Provos\", role = \"cph\",\n           comment = \"libuv subcomponent: tree.h\"),\n    person(\"Internet Systems Consortium, Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: inet_pton and inet_ntop, contained in src/libuv/src/inet.c\"),\n    person(\"Alexander\", \"Chemeris\", role = \"cph\",\n           comment = \"libuv subcomponent: stdint-msvc2008.h (from msinttypes)\"),\n    person(\"Google, Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: pthread-fixes.c\"),\n    person(\"Sony Mobile Communcations AB\", role = \"cph\",\n           comment = \"libuv subcomponent: pthread-fixes.c\"),\n    person(\"Berkeley Software Design Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Kenneth\", \"MacKay\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Emergya (Cloud4all, FP7/2007-2013, grant agreement no 289016)\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Steve\", \"Reid\", role = \"aut\",\n           comment = \"SHA-1 implementation\"),\n    person(\"James\", \"Brown\", role = \"aut\",\n           comment = \"SHA-1 implementation\"),\n    person(\"Bob\", \"Trower\", role = \"aut\",\n           comment = \"base64 implementation\"),\n    person(\"Alexander\", \"Peslyak\", role = \"aut\",\n           comment = \"MD5 implementation\"),\n    person(\"Trantor Standard Systems\", role = \"cph\",\n           comment = \"base64 implementation\"),\n    person(\"Igor\", \"Sysoev\", role = \"cph\",\n           comment = \"http-parser\")\n  )",
+        "Version": "1.6.17",
+        "Authors@R": "c(\n    person(\"Joe\", \"Cheng\", , \"joe@posit.co\", role = \"aut\"),\n    person(\"Winston\", \"Chang\", , \"winston@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit, PBC\", role = c(\"cph\", \"fnd\"),\n           comment = c(ROR = \"03wc8by49\")),\n    person(\"Hector\", \"Corrada Bravo\", role = \"ctb\"),\n    person(\"Jeroen\", \"Ooms\", role = \"ctb\"),\n    person(\"Andrzej\", \"Krzemienski\", role = \"cph\",\n           comment = \"optional.hpp\"),\n    person(\"libuv project contributors\", role = \"cph\",\n           comment = \"libuv library, see src/libuv/AUTHORS file\"),\n    person(\"Joyent, Inc. and other Node contributors\", role = \"cph\",\n           comment = \"libuv library, see src/libuv/AUTHORS file; and http-parser library, see src/http-parser/AUTHORS file\"),\n    person(\"Niels\", \"Provos\", role = \"cph\",\n           comment = \"libuv subcomponent: tree.h\"),\n    person(\"Internet Systems Consortium, Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: inet_pton and inet_ntop, contained in src/libuv/src/inet.c\"),\n    person(\"Alexander\", \"Chemeris\", role = \"cph\",\n           comment = \"libuv subcomponent: stdint-msvc2008.h (from msinttypes)\"),\n    person(\"Google, Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: pthread-fixes.c\"),\n    person(\"Sony Mobile Communcations AB\", role = \"cph\",\n           comment = \"libuv subcomponent: pthread-fixes.c\"),\n    person(\"Berkeley Software Design Inc.\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Kenneth\", \"MacKay\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Emergya (Cloud4all, FP7/2007-2013, grant agreement no 289016)\", role = \"cph\",\n           comment = \"libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c\"),\n    person(\"Steve\", \"Reid\", role = \"aut\",\n           comment = \"SHA-1 implementation\"),\n    person(\"James\", \"Brown\", role = \"aut\",\n           comment = \"SHA-1 implementation\"),\n    person(\"Bob\", \"Trower\", role = \"aut\",\n           comment = \"base64 implementation\"),\n    person(\"Alexander\", \"Peslyak\", role = \"aut\",\n           comment = \"MD5 implementation\"),\n    person(\"Trantor Standard Systems\", role = \"cph\",\n           comment = \"base64 implementation\"),\n    person(\"Igor\", \"Sysoev\", role = \"cph\",\n           comment = \"http-parser\")\n  )",
         "Description": "Provides low-level socket and protocol support for handling\n    HTTP and WebSocket requests directly from within R. It is primarily\n    intended as a building block for other packages, rather than making it\n    particularly easy to create complete web applications using httpuv\n    alone.  httpuv is built on top of the libuv and http-parser C\n    libraries, both of which were developed by Joyent, Inc. (See LICENSE\n    file for libuv and http-parser license information.)",
         "License": "GPL (>= 2) | file LICENSE",
-        "URL": "https://github.com/rstudio/httpuv",
+        "URL": "https://rstudio.github.io/httpuv/,\nhttps://github.com/rstudio/httpuv",
         "BugReports": "https://github.com/rstudio/httpuv/issues",
         "Depends": "R (>= 2.15.1)",
         "Imports": "later (>= 0.8.0), promises, R6, Rcpp (>= 1.0.7), utils",
-        "Suggests": "callr, curl, jsonlite, testthat, websocket",
+        "Suggests": "callr, curl, jsonlite, testthat (>= 3.0.0), websocket",
         "LinkingTo": "later, Rcpp",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/usethis/last-upkeep": "2025-07-01",
         "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
+        "RoxygenNote": "7.3.3",
         "SystemRequirements": "GNU make, zlib",
-        "Collate": "'RcppExports.R' 'httpuv.R' 'random_port.R' 'server.R'\n'staticServer.R' 'static_paths.R' 'utils.R'",
+        "Collate": "'RcppExports.R' 'httpuv-package.R' 'httpuv.R' 'random_port.R'\n'server.R' 'staticServer.R' 'static_paths.R' 'utils.R'",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-04-15 17:47:41 UTC; cg334",
-        "Author": "Joe Cheng [aut],\n  Winston Chang [aut, cre],\n  Posit, PBC fnd [cph],\n  Hector Corrada Bravo [ctb],\n  Jeroen Ooms [ctb],\n  Andrzej Krzemienski [cph] (optional.hpp),\n  libuv project contributors [cph] (libuv library, see src/libuv/AUTHORS\n    file),\n  Joyent, Inc. and other Node contributors [cph] (libuv library, see\n    src/libuv/AUTHORS file; and http-parser library, see\n    src/http-parser/AUTHORS file),\n  Niels Provos [cph] (libuv subcomponent: tree.h),\n  Internet Systems Consortium, Inc. [cph] (libuv subcomponent: inet_pton\n    and inet_ntop, contained in src/libuv/src/inet.c),\n  Alexander Chemeris [cph] (libuv subcomponent: stdint-msvc2008.h (from\n    msinttypes)),\n  Google, Inc. [cph] (libuv subcomponent: pthread-fixes.c),\n  Sony Mobile Communcations AB [cph] (libuv subcomponent:\n    pthread-fixes.c),\n  Berkeley Software Design Inc. [cph] (libuv subcomponent:\n    android-ifaddrs.h, android-ifaddrs.c),\n  Kenneth MacKay [cph] (libuv subcomponent: android-ifaddrs.h,\n    android-ifaddrs.c),\n  Emergya (Cloud4all, FP7/2007-2013, grant agreement no 289016) [cph]\n    (libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c),\n  Steve Reid [aut] (SHA-1 implementation),\n  James Brown [aut] (SHA-1 implementation),\n  Bob Trower [aut] (base64 implementation),\n  Alexander Peslyak [aut] (MD5 implementation),\n  Trantor Standard Systems [cph] (base64 implementation),\n  Igor Sysoev [cph] (http-parser)",
+        "Packaged": "2026-03-17 17:55:04 UTC; cpsievert",
+        "Author": "Joe Cheng [aut],\n  Winston Chang [aut, cre],\n  Posit, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>),\n  Hector Corrada Bravo [ctb],\n  Jeroen Ooms [ctb],\n  Andrzej Krzemienski [cph] (optional.hpp),\n  libuv project contributors [cph] (libuv library, see src/libuv/AUTHORS\n    file),\n  Joyent, Inc. and other Node contributors [cph] (libuv library, see\n    src/libuv/AUTHORS file; and http-parser library, see\n    src/http-parser/AUTHORS file),\n  Niels Provos [cph] (libuv subcomponent: tree.h),\n  Internet Systems Consortium, Inc. [cph] (libuv subcomponent: inet_pton\n    and inet_ntop, contained in src/libuv/src/inet.c),\n  Alexander Chemeris [cph] (libuv subcomponent: stdint-msvc2008.h (from\n    msinttypes)),\n  Google, Inc. [cph] (libuv subcomponent: pthread-fixes.c),\n  Sony Mobile Communcations AB [cph] (libuv subcomponent:\n    pthread-fixes.c),\n  Berkeley Software Design Inc. [cph] (libuv subcomponent:\n    android-ifaddrs.h, android-ifaddrs.c),\n  Kenneth MacKay [cph] (libuv subcomponent: android-ifaddrs.h,\n    android-ifaddrs.c),\n  Emergya (Cloud4all, FP7/2007-2013, grant agreement no 289016) [cph]\n    (libuv subcomponent: android-ifaddrs.h, android-ifaddrs.c),\n  Steve Reid [aut] (SHA-1 implementation),\n  James Brown [aut] (SHA-1 implementation),\n  Bob Trower [aut] (base64 implementation),\n  Alexander Peslyak [aut] (MD5 implementation),\n  Trantor Standard Systems [cph] (base64 implementation),\n  Igor Sysoev [cph] (http-parser)",
         "Maintainer": "Winston Chang <winston@posit.co>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-04-16 08:00:06 UTC",
-        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-04-16 08:52:02 UTC; unix",
-        "Archs": "httpuv.so.dSYM"
-      }
-    },
-    "httr": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "httr",
-        "Title": "Tools for Working with URLs and HTTP",
-        "Version": "1.4.7",
-        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Useful tools for working with HTTP organised by HTTP verbs\n    (GET(), POST(), etc). Configuration functions make it easy to control\n    additional request components (authenticate(), add_headers() and so\n    on).",
-        "License": "MIT + file LICENSE",
-        "URL": "https://httr.r-lib.org/, https://github.com/r-lib/httr",
-        "BugReports": "https://github.com/r-lib/httr/issues",
-        "Depends": "R (>= 3.5)",
-        "Imports": "curl (>= 5.0.2), jsonlite, mime, openssl (>= 0.8), R6",
-        "Suggests": "covr, httpuv, jpeg, knitr, png, readr, rmarkdown, testthat\n(>= 0.8.0), xml2",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.2.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-08-15 02:56:56 UTC; hadleywickham",
-        "Author": "Hadley Wickham [aut, cre],\n  Posit, PBC [cph, fnd]",
-        "Maintainer": "Hadley Wickham <hadley@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-08-15 09:00:02 UTC",
-        "Built": "R 4.4.0; ; 2024-04-06 06:42:39 UTC; unix"
+        "Date/Publication": "2026-03-18 06:12:59 UTC",
+        "Built": "R 4.4.3; aarch64-apple-darwin20; 2026-03-18 10:17:04 UTC; unix",
+        "Archs": "httpuv.so.dSYM",
+        "RemoteType": "standard",
+        "RemotePkgRef": "httpuv",
+        "RemoteRef": "httpuv",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "1.6.17"
       }
     },
     "jquerylib": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "jquerylib",
         "Title": "Obtain 'jQuery' as an HTML Dependency Object",
@@ -902,7 +972,7 @@
     },
     "jsonlite": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "jsonlite",
         "Version": "2.0.0",
@@ -924,12 +994,48 @@
         "Repository": "CRAN",
         "Date/Publication": "2025-03-27 06:40:02 UTC",
         "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-03-27 07:20:42 UTC; unix",
-        "Archs": "jsonlite.so.dSYM"
+        "Archs": "jsonlite.so.dSYM",
+        "RemoteType": "standard",
+        "RemotePkgRef": "jsonlite",
+        "RemoteRef": "jsonlite",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "2.0.0"
+      }
+    },
+    "keyring": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "keyring",
+        "Title": "Access the System Credential Store from R",
+        "Version": "1.3.2",
+        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Alec\", \"Wong\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Platform independent 'API' to access the operating system's\n    credential store. Currently supports: 'Keychain' on 'macOS',\n    Credential Store on 'Windows', the Secret Service 'API' on 'Linux',\n    and simple, platform independent stores implemented with environment\n    variables or encrypted files.  Additional storage back-ends can be\n    added easily.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://keyring.r-lib.org/, https://github.com/r-lib/keyring",
+        "BugReports": "https://github.com/r-lib/keyring/issues",
+        "Depends": "R (>= 3.6)",
+        "Imports": "askpass, assertthat, filelock, openssl, R6, rappdirs, sodium,\ntools, utils, yaml",
+        "Suggests": "callr, covr, mockery, testthat (>= 3.0.0), withr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.2.3",
+        "SystemRequirements": "Optional: libsecret on Linux (libsecret-1-dev on\nDebian/Ubuntu, libsecret-devel on Fedora/CentOS)",
+        "Collate": "'api.R' 'assertions.R' 'backend-class.R' 'backend-env.R'\n'backend-file.R' 'backend-macos.R' 'backend-secret-service.R'\n'backend-wincred.R' 'default_backend.R' 'keyring-package.R'\n'package.R' 'pass.R' 'utils.R'",
+        "NeedsCompilation": "yes",
+        "Packaged": "2023-12-10 23:58:00 UTC; gaborcsardi",
+        "Author": "Gábor Csárdi [aut, cre],\n  Alec Wong [ctb],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2023-12-11 00:40:02 UTC",
+        "Built": "R 4.4.0; aarch64-apple-darwin20; 2024-04-06 03:05:46 UTC; unix",
+        "Archs": "keyring.so.dSYM"
       }
     },
     "knitr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "knitr",
         "Type": "Package",
@@ -959,7 +1065,7 @@
     },
     "later": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "later",
         "Type": "Package",
@@ -988,7 +1094,7 @@
     },
     "lazyeval": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "lazyeval",
         "Version": "0.2.2",
@@ -1013,7 +1119,7 @@
     },
     "lifecycle": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "lifecycle",
         "Title": "Manage the Life Cycle of your Package Functions",
@@ -1042,7 +1148,7 @@
     },
     "lubridate": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "lubridate",
@@ -1077,7 +1183,7 @@
     },
     "magrittr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "magrittr",
@@ -1107,7 +1213,7 @@
     },
     "memoise": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "memoise",
         "Title": "'Memoisation' of Functions",
@@ -1132,7 +1238,7 @@
     },
     "mime": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "mime",
         "Type": "Package",
@@ -1158,12 +1264,12 @@
     },
     "openssl": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "openssl",
         "Type": "Package",
         "Title": "Toolkit for Encryption, Signatures and Certificates Based on\nOpenSSL",
-        "Version": "2.3.2",
+        "Version": "2.3.4",
         "Authors@R": "c(person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n    comment = c(ORCID = \"0000-0002-4035-0289\")),\n    person(\"Oliver\", \"Keyes\", role = \"ctb\"))",
         "Description": "Bindings to OpenSSL libssl and libcrypto, plus custom SSH key parsers.\n    Supports RSA, DSA and EC curves P-256, P-384, P-521, and curve25519. Cryptographic\n    signatures can either be created and verified manually or via x509 certificates. \n    AES can be used in cbc, ctr or gcm mode for symmetric encryption; RSA for asymmetric\n    (public key) encryption or EC for Diffie Hellman. High-level envelope functions \n    combine RSA and AES for encrypting arbitrary sized data. Other utilities include key\n    generators, hash functions (md5, sha1, sha256, etc), base64 encoder, a secure random\n    number generator, and 'bignum' math methods for manually performing crypto \n    calculations on large multibyte integers.",
         "License": "MIT + file LICENSE",
@@ -1176,18 +1282,23 @@
         "RoxygenNote": "7.3.2",
         "Encoding": "UTF-8",
         "NeedsCompilation": "yes",
-        "Packaged": "2025-02-03 10:27:29 UTC; jeroen",
-        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>),\n  Oliver Keyes [ctb]",
+        "Packaged": "2025-09-30 09:14:32 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (ORCID: <https://orcid.org/0000-0002-4035-0289>),\n  Oliver Keyes [ctb]",
         "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
         "Repository": "CRAN",
-        "Date/Publication": "2025-02-03 14:20:02 UTC",
-        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-02-03 14:46:49 UTC; unix",
-        "Archs": "openssl.so.dSYM"
+        "Date/Publication": "2025-09-30 09:50:02 UTC",
+        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-10-07 13:20:40 UTC; unix",
+        "Archs": "openssl.so.dSYM",
+        "RemoteType": "standard",
+        "RemotePkgRef": "openssl",
+        "RemoteRef": "openssl",
+        "RemoteRepos": "https://cran.rstudio.com",
+        "RemoteSha": "2.3.4"
       }
     },
     "pillar": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "pillar",
         "Title": "Coloured Formatting for Columns",
@@ -1220,7 +1331,7 @@
     },
     "pkgconfig": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "pkgconfig",
         "Title": "Private Configuration for 'R' Packages",
@@ -1242,62 +1353,9 @@
         "Built": "R 4.4.0; ; 2024-04-05 15:00:21 UTC; unix"
       }
     },
-    "prettyunits": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "prettyunits",
-        "Title": "Pretty, Human Readable Formatting of Quantities",
-        "Version": "1.2.0",
-        "Authors@R": "c(\n  person(\"Gabor\", \"Csardi\", email=\"csardi.gabor@gmail.com\", role=c(\"aut\", \"cre\")),\n  person(\"Bill\", \"Denney\", email=\"wdenney@humanpredictions.com\", role=c(\"ctb\"), comment=c(ORCID=\"0000-0002-5759-428X\")),\n  person(\"Christophe\", \"Regouby\", email=\"christophe.regouby@free.fr\", role=c(\"ctb\"))\n  )",
-        "Description": "Pretty, human readable formatting of quantities.\n    Time intervals: '1337000' -> '15d 11h 23m 20s'.\n    Vague time intervals: '2674000' -> 'about a month ago'.\n    Bytes: '1337' -> '1.34 kB'.\n    Rounding: '99' with 3 significant digits -> '99.0'\n    p-values: '0.00001' -> '<0.0001'.\n    Colors: '#FF0000' -> 'red'.\n    Quantities: '1239437' -> '1.24 M'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/r-lib/prettyunits",
-        "BugReports": "https://github.com/r-lib/prettyunits/issues",
-        "Depends": "R(>= 2.10)",
-        "Suggests": "codetools, covr, testthat",
-        "RoxygenNote": "7.2.3",
-        "Encoding": "UTF-8",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-09-24 10:53:19 UTC; gaborcsardi",
-        "Author": "Gabor Csardi [aut, cre],\n  Bill Denney [ctb] (<https://orcid.org/0000-0002-5759-428X>),\n  Christophe Regouby [ctb]",
-        "Maintainer": "Gabor Csardi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-09-24 21:10:02 UTC",
-        "Built": "R 4.4.0; ; 2024-04-05 15:02:55 UTC; unix"
-      }
-    },
-    "progress": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "progress",
-        "Title": "Terminal Progress Bars",
-        "Version": "1.2.3",
-        "Authors@R": "c(\n    person(\"Gábor\", \"Csárdi\", , \"csardi.gabor@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Rich\", \"FitzJohn\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Configurable Progress bars, they may include percentage,\n    elapsed time, and/or the estimated completion time. They work in\n    terminals, in 'Emacs' 'ESS', 'RStudio', 'Windows' 'Rgui' and the\n    'macOS' 'R.app'. The package also provides a 'C++' 'API', that works\n    with or without 'Rcpp'.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://github.com/r-lib/progress#readme,\nhttp://r-lib.github.io/progress/",
-        "BugReports": "https://github.com/r-lib/progress/issues",
-        "Depends": "R (>= 3.6)",
-        "Imports": "crayon, hms, prettyunits, R6",
-        "Suggests": "Rcpp, testthat (>= 3.0.0), withr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.2.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2023-12-05 09:33:10 UTC; gaborcsardi",
-        "Author": "Gábor Csárdi [aut, cre],\n  Rich FitzJohn [aut],\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-12-06 10:30:02 UTC",
-        "Built": "R 4.4.0; ; 2024-04-06 09:13:33 UTC; unix"
-      }
-    },
     "promises": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "promises",
@@ -1328,7 +1386,7 @@
     },
     "rappdirs": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "rappdirs",
@@ -1355,78 +1413,9 @@
         "Archs": "rappdirs.so.dSYM"
       }
     },
-    "readr": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "readr",
-        "Title": "Read Rectangular Text Data",
-        "Version": "2.1.5",
-        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\"),\n    person(\"Jim\", \"Hester\", role = \"aut\"),\n    person(\"Romain\", \"Francois\", role = \"ctb\"),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = c(\"ctb\", \"cph\"),\n           comment = \"grisu3 implementation\")\n  )",
-        "Description": "The goal of 'readr' is to provide a fast and friendly way to\n    read rectangular data (like 'csv', 'tsv', and 'fwf').  It is designed\n    to flexibly parse many types of data found in the wild, while still\n    cleanly failing when data unexpectedly changes.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://readr.tidyverse.org, https://github.com/tidyverse/readr",
-        "BugReports": "https://github.com/tidyverse/readr/issues",
-        "Depends": "R (>= 3.6)",
-        "Imports": "cli (>= 3.2.0), clipr, crayon, hms (>= 0.4.1), lifecycle (>=\n0.2.0), methods, R6, rlang, tibble, utils, vroom (>= 1.6.0)",
-        "Suggests": "covr, curl, datasets, knitr, rmarkdown, spelling, stringi,\ntestthat (>= 3.2.0), tzdb (>= 0.1.1), waldo, withr, xml2",
-        "LinkingTo": "cpp11, tzdb (>= 0.1.1)",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse, tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "false",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.2.3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2024-01-10 21:03:49 UTC; jenny",
-        "Author": "Hadley Wickham [aut],\n  Jim Hester [aut],\n  Romain Francois [ctb],\n  Jennifer Bryan [aut, cre] (<https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  Posit Software, PBC [cph, fnd],\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [ctb, cph] (grisu3 implementation),\n  Mikkel Jørgensen [ctb, cph] (grisu3 implementation)",
-        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2024-01-10 23:20:02 UTC",
-        "Built": "R 4.4.0; aarch64-apple-darwin20; 2024-04-06 17:01:38 UTC; unix",
-        "Archs": "readr.so.dSYM"
-      }
-    },
-    "renv": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "renv",
-        "Type": "Package",
-        "Title": "Project Environments",
-        "Version": "1.1.5",
-        "Authors@R": "c(\n    person(\"Kevin\", \"Ushey\", role = c(\"aut\", \"cre\"), email = \"kevin@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-2880-7407\")),\n    person(\"Hadley\", \"Wickham\", role = c(\"aut\"), email = \"hadley@rstudio.com\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n    )",
-        "Description": "A dependency management toolkit for R. Using 'renv', you can create\n    and manage project-local R libraries, save the state of these libraries to\n    a 'lockfile', and later restore your library as required. Together, these\n    tools can help make your projects more isolated, portable, and reproducible.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://rstudio.github.io/renv/, https://github.com/rstudio/renv",
-        "BugReports": "https://github.com/rstudio/renv/issues",
-        "Imports": "utils",
-        "Suggests": "BiocManager, cli, compiler, covr, cpp11, devtools, generics,\ngitcreds, jsonlite, jsonvalidate, knitr, miniUI, modules,\npackrat, pak, R6, remotes, reticulate, rmarkdown, rstudioapi,\nshiny, testthat, uuid, waldo, yaml, webfakes",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "true",
-        "Config/testthat/start-first": "bioconductor,python,install,restore,snapshot,retrieve,remotes",
-        "NeedsCompilation": "no",
-        "Packaged": "2025-07-24 20:47:34 UTC; kevin",
-        "Author": "Kevin Ushey [aut, cre] (ORCID: <https://orcid.org/0000-0003-2880-7407>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Kevin Ushey <kevin@rstudio.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-07-24 21:40:02 UTC",
-        "Built": "R 4.4.1; ; 2025-07-24 21:57:53 UTC; unix",
-        "RemoteType": "standard",
-        "RemotePkgRef": "renv",
-        "RemoteRef": "renv",
-        "RemoteRepos": "https://cran.rstudio.com",
-        "RemoteSha": "1.1.5"
-      }
-    },
     "rlang": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "rlang",
         "Version": "1.1.6",
@@ -1459,7 +1448,7 @@
     },
     "rmarkdown": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "rmarkdown",
@@ -1490,7 +1479,7 @@
     },
     "sass": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Type": "Package",
         "Package": "sass",
@@ -1520,7 +1509,7 @@
     },
     "shiny": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "shiny",
         "Type": "Package",
@@ -1551,7 +1540,7 @@
     },
     "shinyWidgets": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "shinyWidgets",
         "Title": "Custom Inputs Widgets for Shiny",
@@ -1576,9 +1565,36 @@
         "Built": "R 4.4.1; ; 2025-02-21 14:14:55 UTC; unix"
       }
     },
+    "sodium": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "sodium",
+        "Type": "Package",
+        "Title": "A Modern and Easy-to-Use Crypto Library",
+        "Version": "1.4.0",
+        "Authors@R": "person(\"Jeroen\", \"Ooms\", role = c(\"aut\", \"cre\"), email = \"jeroenooms@gmail.com\",\n    comment = c(ORCID = \"0000-0002-4035-0289\"))",
+        "Description": "Bindings to 'libsodium' <https://doc.libsodium.org/>: a modern, \n    easy-to-use software library for encryption, decryption, signatures, password\n    hashing and more. Sodium uses curve25519, a state-of-the-art Diffie-Hellman \n    function by Daniel Bernstein, which has become very popular after it was \n    discovered that the NSA had backdoored Dual EC DRBG.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://docs.ropensci.org/sodium/ https://github.com/r-lib/sodium",
+        "BugReports": "https://github.com/r-lib/sodium/issues",
+        "SystemRequirements": "libsodium (>= 1.0.3)",
+        "VignetteBuilder": "knitr",
+        "Suggests": "knitr, rmarkdown",
+        "RoxygenNote": "7.2.3",
+        "NeedsCompilation": "yes",
+        "Packaged": "2024-12-16 14:16:42 UTC; jeroen",
+        "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>)",
+        "Maintainer": "Jeroen Ooms <jeroenooms@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-12-16 15:00:05 UTC",
+        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-01-24 20:47:02 UTC; unix",
+        "Archs": "sodium.so.dSYM"
+      }
+    },
     "sourcetools": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "sourcetools",
         "Type": "Package",
@@ -1603,7 +1619,7 @@
     },
     "sys": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "sys",
         "Type": "Package",
@@ -1630,7 +1646,7 @@
     },
     "tibble": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "tibble",
         "Title": "Simple Data Frames",
@@ -1665,7 +1681,7 @@
     },
     "tidyselect": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "tidyselect",
         "Title": "Select from a Set of Strings",
@@ -1695,7 +1711,7 @@
     },
     "timechange": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "timechange",
         "Title": "Efficient Manipulation of Date-Times",
@@ -1723,7 +1739,7 @@
     },
     "tinytex": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "tinytex",
         "Type": "Package",
@@ -1747,39 +1763,9 @@
         "Built": "R 4.4.1; ; 2025-04-15 16:16:54 UTC; unix"
       }
     },
-    "tzdb": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "tzdb",
-        "Title": "Time Zone Database Information",
-        "Version": "0.5.0",
-        "Authors@R": "c(\n    person(\"Davis\", \"Vaughan\", , \"davis@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Howard\", \"Hinnant\", role = \"cph\",\n           comment = \"Author of the included date library\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Provides an up-to-date copy of the Internet Assigned Numbers\n    Authority (IANA) Time Zone Database. It is updated periodically to\n    reflect changes made by political bodies to time zone boundaries, UTC\n    offsets, and daylight saving time rules. Additionally, this package\n    provides a C++ interface for working with the 'date' library. 'date'\n    provides comprehensive support for working with dates and date-times,\n    which this package exposes to make it easier for other R packages to\n    utilize. Headers are provided for calendar specific calculations,\n    along with a limited interface for time zone manipulations.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://tzdb.r-lib.org, https://github.com/r-lib/tzdb",
-        "BugReports": "https://github.com/r-lib/tzdb/issues",
-        "Depends": "R (>= 4.0.0)",
-        "Suggests": "covr, testthat (>= 3.0.0)",
-        "LinkingTo": "cpp11 (>= 0.5.2)",
-        "Biarch": "yes",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.2",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-03-14 18:41:13 UTC; davis",
-        "Author": "Davis Vaughan [aut, cre],\n  Howard Hinnant [cph] (Author of the included date library),\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Davis Vaughan <davis@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-03-15 22:50:02 UTC",
-        "Built": "R 4.4.1; aarch64-apple-darwin20; 2025-03-17 22:55:18 UTC; unix",
-        "Archs": "tzdb.so.dSYM"
-      }
-    },
     "utf8": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "utf8",
         "Title": "Unicode Text Processing",
@@ -1807,7 +1793,7 @@
     },
     "vctrs": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "vctrs",
         "Title": "Vector Helpers",
@@ -1836,43 +1822,9 @@
         "Archs": "vctrs.so.dSYM"
       }
     },
-    "vroom": {
-      "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
-      "description": {
-        "Package": "vroom",
-        "Title": "Read and Write Rectangular Text Data Quickly",
-        "Version": "1.6.5",
-        "Authors@R": "c(\n    person(\"Jim\", \"Hester\", role = \"aut\",\n           comment = c(ORCID = \"0000-0002-2739-7082\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Jennifer\", \"Bryan\", , \"jenny@posit.co\", role = c(\"aut\", \"cre\"),\n           comment = c(ORCID = \"0000-0002-6983-2759\")),\n    person(\"Shelby\", \"Bearrows\", role = \"ctb\"),\n    person(\"https://github.com/mandreyel/\", role = \"cph\",\n           comment = \"mio library\"),\n    person(\"Jukka\", \"Jylänki\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Mikkel\", \"Jørgensen\", role = \"cph\",\n           comment = \"grisu3 implementation\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "The goal of 'vroom' is to read and write data (like 'csv',\n    'tsv' and 'fwf') quickly. When reading it uses a quick initial\n    indexing step, then reads the values lazily , so only the data you\n    actually use needs to be read.  The writer formats the data in\n    parallel and writes to disk asynchronously from formatting.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://vroom.r-lib.org, https://github.com/tidyverse/vroom",
-        "BugReports": "https://github.com/tidyverse/vroom/issues",
-        "Depends": "R (>= 3.6)",
-        "Imports": "bit64, cli (>= 3.2.0), crayon, glue, hms, lifecycle (>=\n1.0.3), methods, rlang (>= 0.4.2), stats, tibble (>= 2.0.0),\ntidyselect, tzdb (>= 0.1.1), vctrs (>= 0.2.0), withr",
-        "Suggests": "archive, bench (>= 1.1.0), covr, curl, dplyr, forcats, fs,\nggplot2, knitr, patchwork, prettyunits, purrr, rmarkdown,\nrstudioapi, scales, spelling, testthat (>= 2.1.0), tidyr,\nutils, waldo, xml2",
-        "LinkingTo": "cpp11 (>= 0.2.0), progress (>= 1.2.1), tzdb (>= 0.1.1)",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "nycflights13, tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Config/testthat/parallel": "false",
-        "Copyright": "file COPYRIGHTS",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.2.3.9000",
-        "NeedsCompilation": "yes",
-        "Packaged": "2023-12-05 16:46:59 UTC; jenny",
-        "Author": "Jim Hester [aut] (<https://orcid.org/0000-0002-2739-7082>),\n  Hadley Wickham [aut] (<https://orcid.org/0000-0003-4757-117X>),\n  Jennifer Bryan [aut, cre] (<https://orcid.org/0000-0002-6983-2759>),\n  Shelby Bearrows [ctb],\n  https://github.com/mandreyel/ [cph] (mio library),\n  Jukka Jylänki [cph] (grisu3 implementation),\n  Mikkel Jørgensen [cph] (grisu3 implementation),\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Jennifer Bryan <jenny@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2023-12-05 23:50:02 UTC",
-        "Built": "R 4.4.0; aarch64-apple-darwin20; 2024-04-06 10:52:24 UTC; unix",
-        "Archs": "vroom.so.dSYM"
-      }
-    },
     "withr": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "withr",
         "Title": "Run Code 'With' Temporarily Modified Global State",
@@ -1902,7 +1854,7 @@
     },
     "xfun": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "xfun",
         "Type": "Package",
@@ -1931,7 +1883,7 @@
     },
     "xtable": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "xtable",
         "Version": "1.8-4",
@@ -1956,7 +1908,7 @@
     },
     "yaml": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cloud.r-project.org",
       "description": {
         "Package": "yaml",
         "Type": "Package",
@@ -1980,764 +1932,11 @@
     }
   },
   "files": {
-    ".RData": {
-      "checksum": "5a49c8028c5a016ede4df2bed0a39812"
-    },
-    ".Rprofile": {
-      "checksum": "2317d395912d8452f7537df43d6f432f"
-    },
-    "airtable_access.R": {
-      "checksum": "7b00bfdbe18ccb1d86726f46e9176d44"
-    },
-    "app_config.R": {
-      "checksum": "b2f89b5f7894d0b2aea64f7a03b44543"
-    },
-    "app_extract_athletes.R": {
-      "checksum": "af61d70a14c6304be6664f420065bb5f"
-    },
-    "app_local_Airtable_access.R": {
-      "checksum": "468095ff1d2bc8e5c21258cbbaa314c8"
-    },
-    "app_OLD.R": {
-      "checksum": "fdea77b2bd7228552221022355b77dc8"
-    },
-    "app_rubric_googlesheet.R": {
-      "checksum": "23adff5730ccbf5d5a2ca3435406aab8"
-    },
-    "app_rubric_local.R": {
-      "checksum": "2225414870d20afa1fa9597fcc338a58"
-    },
     "app.R": {
-      "checksum": "b35af3f78c866efdd25271d7eabea20f"
+      "checksum": "373fd849cc75f9db75bc64860210dd48"
     },
-    "app2.R": {
-      "checksum": "23adff5730ccbf5d5a2ca3435406aab8"
-    },
-    "data/master_rubric_submissions.csv": {
-      "checksum": "ba6d16362105e9fe8095cb835e6dfe6a"
-    },
-    "docs/app.json": {
-      "checksum": "bace153e380fc9140a9d90e6915c9c99"
-    },
-    "docs/edit/index.html": {
-      "checksum": "4752dc2dd0b23ac5bd1bbb14f7ace61e"
-    },
-    "docs/index.html": {
-      "checksum": "8ed1a4a14774451f5b5f07811cd64b91"
-    },
-    "docs/shinylive-sw.js": {
-      "checksum": "91385ac0faf01c29c38fab73bba9d083"
-    },
-    "docs/shinylive/browser-OYYBATHK.js": {
-      "checksum": "bd01b2dc4d81e19efd12916e62666395"
-    },
-    "docs/shinylive/browser-YJT5PK6V.js": {
-      "checksum": "28ee6a9b82141a566083aaa2fb3ceea6"
-    },
-    "docs/shinylive/chunk-O5P2LFOG.js": {
-      "checksum": "9e5a9602e7526ff41074958eeb0afe13"
-    },
-    "docs/shinylive/chunk-PHWSSKUM.js": {
-      "checksum": "9e2c04e3ce832f1bef86bdf82cc5f563"
-    },
-    "docs/shinylive/Editor.css": {
-      "checksum": "ac1198334af86cb000fe073c550bd74a"
-    },
-    "docs/shinylive/Editor.js": {
-      "checksum": "c8b2465c79ef2a63b7ccd5002c51934b"
-    },
-    "docs/shinylive/load-shinylive-sw.js": {
-      "checksum": "ef2a90c98a9716e0988b1a31bbfad2e9"
-    },
-    "docs/shinylive/lzstring-worker.js": {
-      "checksum": "5c9d533a54fae07d12252ec314fd0bc4"
-    },
-    "docs/shinylive/pyodide-worker.js": {
-      "checksum": "32ed2f512a3484fbe4ed801c5c9a9518"
-    },
-    "docs/shinylive/run-python-blocks.js": {
-      "checksum": "284bce30428215fc78b40e87d87751c9"
-    },
-    "docs/shinylive/shinylive.css": {
-      "checksum": "2191f7bef7b5af50ba71a7e7c8b099e6"
-    },
-    "docs/shinylive/shinylive.js": {
-      "checksum": "111617451cf5fa791943e2fd8be3523b"
-    },
-    "docs/shinylive/SourceSansPro-Regular.otf-PVQ5ZP77.woff2": {
-      "checksum": "0448fda3606e6dc571f763223e78861a"
-    },
-    "docs/shinylive/style-resets.css": {
-      "checksum": "326179a3af08325314a9f92ef53b7b20"
-    },
-    "docs/shinylive/webr/esbuild.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/library.data.gz": {
-      "checksum": "3fd7111f335906871c37a3deaca4ddf0"
-    },
-    "docs/shinylive/webr/library.js.metadata": {
-      "checksum": "22c3351a15690195ae61d17e0a1b851f"
-    },
-    "docs/shinylive/webr/libRblas.so": {
-      "checksum": "95d021b4cd5f74a6abbee092a2de30bc"
-    },
-    "docs/shinylive/webr/libRlapack.so": {
-      "checksum": "2061ea193621976d961a0421ef431f56"
-    },
-    "docs/shinylive/webr/packages/askpass/askpass_1.2.1.tgz": {
-      "checksum": "4bb29b1c801ac5af1fbe13c4d533b2ec"
-    },
-    "docs/shinylive/webr/packages/bit/bit_4.6.0.tgz": {
-      "checksum": "09a194d817ee654c8d0ae5113234e9ee"
-    },
-    "docs/shinylive/webr/packages/bit64/bit64_4.6.0-1.tgz": {
-      "checksum": "3b80c9c8d2f78fb2567110a3c814aabe"
-    },
-    "docs/shinylive/webr/packages/clipr/clipr_0.8.0.tgz": {
-      "checksum": "4856b6281055c6c098007fad141c2eed"
-    },
-    "docs/shinylive/webr/packages/crayon/crayon_1.5.3.tgz": {
-      "checksum": "59a2c586d4dc6c2c1dc40b5a5029aca7"
-    },
-    "docs/shinylive/webr/packages/crosstalk/crosstalk_1.2.1.tgz": {
-      "checksum": "693f7638cd7e833cab5fe1158c6c6180"
-    },
-    "docs/shinylive/webr/packages/dplyr/dplyr_1.1.4.tgz": {
-      "checksum": "234970f116f17152c1ee859863f20770"
-    },
-    "docs/shinylive/webr/packages/DT/DT_0.33.tgz": {
-      "checksum": "4c4e102a5134a863a21fa7b0c787b75f"
-    },
-    "docs/shinylive/webr/packages/evaluate/evaluate_1.0.3.tgz": {
-      "checksum": "978e4450cf81041a071af20d3ab80421"
-    },
-    "docs/shinylive/webr/packages/fansi/fansi_1.0.6.tgz": {
-      "checksum": "79e638d445ce9ac1ffc3b095a22adba7"
-    },
-    "docs/shinylive/webr/packages/generics/generics_0.1.3.tgz": {
-      "checksum": "7ea35b0a5c08bf06fe9d3a45add2be8f"
-    },
-    "docs/shinylive/webr/packages/highr/highr_0.11.tgz": {
-      "checksum": "1686e200d41415cac82328d42f1dd839"
-    },
-    "docs/shinylive/webr/packages/hms/hms_1.1.3.tgz": {
-      "checksum": "09cd5b1a155d451190ec799525f11741"
-    },
-    "docs/shinylive/webr/packages/htmlwidgets/htmlwidgets_1.6.4.tgz": {
-      "checksum": "7d1da06e144b8be3911b837b29a58337"
-    },
-    "docs/shinylive/webr/packages/httr/httr_1.4.7.tgz": {
-      "checksum": "fe3b062b40a2e426d5eb6896ac0bbf89"
-    },
-    "docs/shinylive/webr/packages/knitr/knitr_1.50.tgz": {
-      "checksum": "dd42c547475f975d4ca8a86dcec93832"
-    },
-    "docs/shinylive/webr/packages/lazyeval/lazyeval_0.2.2.tgz": {
-      "checksum": "c699c93ef2d75f7903a8c414073da852"
-    },
-    "docs/shinylive/webr/packages/lubridate/lubridate_1.9.4.tgz": {
-      "checksum": "a129b1bda587a92e23bbaa6f5099f16f"
-    },
-    "docs/shinylive/webr/packages/metadata.rds": {
-      "checksum": "aa09e1f368d9f0bd335a2bd2b19eac2a"
-    },
-    "docs/shinylive/webr/packages/openssl/openssl_2.3.2.tgz": {
-      "checksum": "dcec0a49e4594e1850c8d6eab9662db1"
-    },
-    "docs/shinylive/webr/packages/pillar/pillar_1.10.2.tgz": {
-      "checksum": "8b3adf1d1681252ef78cd8ec905f74a1"
-    },
-    "docs/shinylive/webr/packages/pkgconfig/pkgconfig_2.0.3.tgz": {
-      "checksum": "8ced9ddc8205b9302be9494462f2aaa2"
-    },
-    "docs/shinylive/webr/packages/readr/readr_2.1.5.tgz": {
-      "checksum": "9fc4b37ad8ed142ae8c0cb5db24ec19a"
-    },
-    "docs/shinylive/webr/packages/rmarkdown/rmarkdown_2.29.tgz": {
-      "checksum": "e187089761a8c486cbaa5a60ca5b76dc"
-    },
-    "docs/shinylive/webr/packages/shinyWidgets/shinyWidgets_0.9.0.tgz": {
-      "checksum": "68ab908fefdb9d7d3484bef66641158a"
-    },
-    "docs/shinylive/webr/packages/sys/sys_3.4.3.tgz": {
-      "checksum": "695d4e5503fb0b48fdb23b3d05a08daa"
-    },
-    "docs/shinylive/webr/packages/tibble/tibble_3.2.1.tgz": {
-      "checksum": "f260889ac236343961aa5824c1d3b9ee"
-    },
-    "docs/shinylive/webr/packages/tidyselect/tidyselect_1.2.1.tgz": {
-      "checksum": "005e0028782975e3432424bc448f3bf6"
-    },
-    "docs/shinylive/webr/packages/timechange/timechange_0.3.0.tgz": {
-      "checksum": "2680cf2a04f8d05134c6ae4962766a24"
-    },
-    "docs/shinylive/webr/packages/tinytex/tinytex_0.57.tgz": {
-      "checksum": "f0d6f0e848620cf096fd5fbb2c292988"
-    },
-    "docs/shinylive/webr/packages/tzdb/tzdb_0.5.0.tgz": {
-      "checksum": "c97efddfb3a53a0b72b7dd98d30c842f"
-    },
-    "docs/shinylive/webr/packages/utf8/utf8_1.2.4.tgz": {
-      "checksum": "6eb30bbf4142440deaa6d676f150f03e"
-    },
-    "docs/shinylive/webr/packages/vctrs/vctrs_0.6.5.tgz": {
-      "checksum": "7b6dc0410742c8ee27832b49bc5a3892"
-    },
-    "docs/shinylive/webr/packages/vroom/vroom_1.6.5.9000.tgz": {
-      "checksum": "e5c1dd1ea2b6012f9a7931c46ffcedae"
-    },
-    "docs/shinylive/webr/packages/xfun/xfun_0.52.tgz": {
-      "checksum": "a3918333bb0d419f0562be077719ba7a"
-    },
-    "docs/shinylive/webr/packages/yaml/yaml_2.3.10.tgz": {
-      "checksum": "ac57ec9431c0df88a1acdbe8a8a8fa3b"
-    },
-    "docs/shinylive/webr/R.bin.js": {
-      "checksum": "3f848b680dabe7729891d8e31fde39df"
-    },
-    "docs/shinylive/webr/R.bin.js.bak": {
-      "checksum": "fb9b34092c91cbf78da454c851abd4ab"
-    },
-    "docs/shinylive/webr/R.bin.wasm": {
-      "checksum": "65c0bb88e8bb52d4abd72d65d08c350a"
-    },
-    "docs/shinylive/webr/repl/App.d.ts": {
-      "checksum": "6f52674a713dc1a91ec7ceb6661ae83f"
-    },
-    "docs/shinylive/webr/repl/components/Editor.d.ts": {
-      "checksum": "1600d80cccab2f3d43742373e9e605f3"
-    },
-    "docs/shinylive/webr/repl/components/Files.d.ts": {
-      "checksum": "85184877fbba6a5cf7cdeac40f2698b1"
-    },
-    "docs/shinylive/webr/repl/components/Plot.d.ts": {
-      "checksum": "132d88e78dac188518bfc3e9805e635d"
-    },
-    "docs/shinylive/webr/repl/components/Terminal.d.ts": {
-      "checksum": "1848af6209f7312499f43197fdaf5ac7"
-    },
-    "docs/shinylive/webr/repl/components/utils.d.ts": {
-      "checksum": "b9f9171cc64739ca15d789bbf6529271"
-    },
-    "docs/shinylive/webr/tests/packages/webr.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/chan/channel-postmessage.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/console.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/error.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/mount.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/proxy.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/robj.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/utils.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/webr-main.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/webr-r.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/tests/webR/webr-worker.test.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "docs/shinylive/webr/vfs/etc/fonts/fonts.conf": {
-      "checksum": "6300427804c4677462c2b187d9e2d3d3"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/doc.data.gz": {
-      "checksum": "189bf90daf482045c04d29c78fc3efa1"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/doc.js.metadata": {
-      "checksum": "a747595f2c53bcba0c57a0c1534499a3"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/demo.data.gz": {
-      "checksum": "079e9d73453dcd1ea1f860226498a417"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/demo.js.metadata": {
-      "checksum": "bf73c10ef38977281a0a823054ff08ab"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/help.data.gz": {
-      "checksum": "1e948c99be12b0befdc5715f6834a16f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/help.js.metadata": {
-      "checksum": "7821f4c7805e6a2fe5e91cb51dc090c4"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/html.data.gz": {
-      "checksum": "f425bcccc2d94280957d57180f9b2a59"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/base/html.js.metadata": {
-      "checksum": "7ba454753f5b85cac74f2b66b97c8247"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/help.data.gz": {
-      "checksum": "892f3f5a74e34a7b5005bea4ffa9893d"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/help.js.metadata": {
-      "checksum": "03fadda87f6131bf311bd0f99b3d2636"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/html.data.gz": {
-      "checksum": "bb156e5e7524e9ca72bc5aa0c7d30bc2"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/html.js.metadata": {
-      "checksum": "1af0681672853159028ccdbaecd4433d"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/tests.data.gz": {
-      "checksum": "51f97dcedd30c0e72f37adabedcf79d8"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/compiler/tests.js.metadata": {
-      "checksum": "1868ff2023f0a715f586b0b997323536"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/datasets/help.data.gz": {
-      "checksum": "6aac044f9f08247f662e0ed2d869196f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/datasets/help.js.metadata": {
-      "checksum": "216cc330dc992bbdbafe6d0fcfb71eec"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/datasets/html.data.gz": {
-      "checksum": "d2423df8ff4acc40625aa656441f9d22"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/datasets/html.js.metadata": {
-      "checksum": "710992e6c0e35f1fa2cb427caa7ddc33"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/demo.data.gz": {
-      "checksum": "a77fea69b2a3ac26c42a4bc5e53e4158"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/demo.js.metadata": {
-      "checksum": "641dd3b6e318c9bd7cd044a7a96735c9"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/help.data.gz": {
-      "checksum": "a0b8a84e305c9c6431f85b0d5d6423bb"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/help.js.metadata": {
-      "checksum": "fd3d6c396163ddef881566c315b0b91f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/html.data.gz": {
-      "checksum": "892c9f0de89ebacf39417aec1721c5a5"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/graphics/html.js.metadata": {
-      "checksum": "eaa7381c21f495d1e2a0d0b2a2a19a02"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/afm.data.gz": {
-      "checksum": "df161062d0d89fe9c8750b95603eb414"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/afm.js.metadata": {
-      "checksum": "9cba9a4535baef593b96eed0003bc03d"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/demo.data.gz": {
-      "checksum": "9dc9ce1b8e0be41a01d0c47665420b90"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/demo.js.metadata": {
-      "checksum": "8883d9a5770c131cd37e491a66d5f2d9"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/enc.data.gz": {
-      "checksum": "a6d8fe92dffe9e6b562e731189119253"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/enc.js.metadata": {
-      "checksum": "516864001be8080cb4e938bcfeb1366f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/fonts.data.gz": {
-      "checksum": "daa6e78e427d8ffceb3fb6852b7756b0"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/fonts.js.metadata": {
-      "checksum": "7b3727b93d155fd5770e87539d88fa45"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/help.data.gz": {
-      "checksum": "5fe1c4e943cca31575fb8d58558f672f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/help.js.metadata": {
-      "checksum": "c84d442aacf0391a80bf932f2cea4b17"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/html.data.gz": {
-      "checksum": "7b1d130c5132c7e6b694ba530113f749"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/html.js.metadata": {
-      "checksum": "a00fc1598449bf5fed1b8d1144911544"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/libs.data.gz": {
-      "checksum": "b6bee4ccc1199b69c68d861caeb4f0d3"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/libs.js.metadata": {
-      "checksum": "e441f909946d13ea1a9a290af577c64b"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/tests.data.gz": {
-      "checksum": "5291b3572f9586c9f4f19d3bb0886c32"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grDevices/tests.js.metadata": {
-      "checksum": "4f7ebfcae6fdfbf210bacfb13bf11ca6"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/doc.data.gz": {
-      "checksum": "2bd0664745ef82a32fec3a48443f51f8"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/doc.js.metadata": {
-      "checksum": "6b2e9947c2bdf1fab22b0d8c6fae1503"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/help.data.gz": {
-      "checksum": "3feb6f1df71b8c5a5ba4ae91ce380d67"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/help.js.metadata": {
-      "checksum": "734d1214108f1d703da68c5ee060d623"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/html.data.gz": {
-      "checksum": "f1e5c78d950f42b934035adf28ec04a1"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/html.js.metadata": {
-      "checksum": "b67fe52dc201a1bb07292047aba4fd77"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/tests.data.gz": {
-      "checksum": "df15969c564c2b8345c1c70847f47801"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/grid/tests.js.metadata": {
-      "checksum": "08fe5a2551197285584345a51d8c2acf"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/help.data.gz": {
-      "checksum": "e65076512220527f7711ffa2981eba2e"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/help.js.metadata": {
-      "checksum": "2240c33147f18682592c6868194635f8"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/html.data.gz": {
-      "checksum": "e39b1c6e8a0a1f50815046f4e2fc916e"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/html.js.metadata": {
-      "checksum": "8f39d45134f44a72b97a909ad582543c"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/tests.data.gz": {
-      "checksum": "9285d6323510ab932c29a50768d5c921"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/methods/tests.js.metadata": {
-      "checksum": "e8b3513f6be14ab96d6f1ae38d2edf15"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/parallel.data.gz": {
-      "checksum": "c9a5c9c835fb279ccacb099d4e99b291"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/parallel.js.metadata": {
-      "checksum": "18f67a0b32d58e57fb0fb3ca4269d5eb"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/help.data.gz": {
-      "checksum": "aa11e5368abe19cf238b8c2bfc31e3df"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/help.js.metadata": {
-      "checksum": "1785274cf08329875a1874aac92f7cf8"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/html.data.gz": {
-      "checksum": "609ff8b7f011f13778022d94fa6c2ff1"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/html.js.metadata": {
-      "checksum": "23de4b5bbae29ac86d2109caefa041da"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/tests.data.gz": {
-      "checksum": "ab09685305595a2e40acf3079b90750b"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/splines/tests.js.metadata": {
-      "checksum": "a0c414570cc4738b41a96d5dfd654c25"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/demo.data.gz": {
-      "checksum": "c2583264c4a28cb8177917fe0cd49d7e"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/demo.js.metadata": {
-      "checksum": "84af5ae1632e5e6b4a99991e670c8664"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/help.data.gz": {
-      "checksum": "77fdf8728cdcc04d9d0158dbe812de34"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/help.js.metadata": {
-      "checksum": "396344b6b9eb2f33df4f306bb67e16e0"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/html.data.gz": {
-      "checksum": "d93193a37fac766915c5043690bc7c5a"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/html.js.metadata": {
-      "checksum": "c6d3e1209d8bb2346e4ccbaee02bb1f7"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/tests.data.gz": {
-      "checksum": "f4989f477b7fa6cfcfc9de9e11448a91"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats/tests.js.metadata": {
-      "checksum": "9c2e24ce4bfddc081e54a338e201a9f5"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/help.data.gz": {
-      "checksum": "07575676825ac21e03a81110e0a0b1ea"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/help.js.metadata": {
-      "checksum": "0d6776e8af33b5c341739cfd73ae1f1d"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/html.data.gz": {
-      "checksum": "71b6b1202a6dec656914d0d258b48c3e"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/html.js.metadata": {
-      "checksum": "70df2ee502fe990362b1fba5174c96fd"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/tests.data.gz": {
-      "checksum": "c7f001b4ef53b5c7e67379dc0f0c659a"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/stats4/tests.js.metadata": {
-      "checksum": "73be0b9593e90df45b9c9a2aaf482944"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tcltk.data.gz": {
-      "checksum": "332db24b1aeae594172e76c773e8f7c8"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tcltk.js.metadata": {
-      "checksum": "4938018ba3b0408125c981b463559687"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/help.data.gz": {
-      "checksum": "07008792bfd607da56dc1e999b1f2ef4"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/help.js.metadata": {
-      "checksum": "662db5c182af2f5ec73a9ce034b630dd"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/html.data.gz": {
-      "checksum": "d48125a763a53c776c80ce9dc52fd07e"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/html.js.metadata": {
-      "checksum": "cb1fcd61384800f6946a8a4906147029"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/tests.data.gz": {
-      "checksum": "d777249e7345568df27e21c8725d495f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/tools/tests.js.metadata": {
-      "checksum": "e4af7723e1ac91fd4806cb79170f5b29"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/translations.data.gz": {
-      "checksum": "965786e65d3832ede577a60cd62db45f"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/translations.js.metadata": {
-      "checksum": "6129faae22842c1e952292bc648c969c"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/translations/DESCRIPTION": {
-      "checksum": "8c74fc51c182b93b45d7c801202cb889"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/doc.data.gz": {
-      "checksum": "f5b7b9b59b10d25ab6c4e50e54c62c43"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/doc.js.metadata": {
-      "checksum": "f6447a41d69b94c4f927b3679a37f083"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/help.data.gz": {
-      "checksum": "e7fd6f7b1dcac046ecd5e4ddaa6a806b"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/help.js.metadata": {
-      "checksum": "3f8de1d5bc5e73e5a473c299fd6bb0f1"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/html.data.gz": {
-      "checksum": "3f98a63d008ffe03e0d86b12b302103d"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/html.js.metadata": {
-      "checksum": "64c759721282356f80bb4d9207345d83"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/misc.data.gz": {
-      "checksum": "ef83c5b22ee9c1ca2f7005fd8ecf3573"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/misc.js.metadata": {
-      "checksum": "231cffe9bf0512b4d9c176905a34b29a"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/tests.data.gz": {
-      "checksum": "841f327e5a68871acee4808794558805"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/utils/tests.js.metadata": {
-      "checksum": "a7ad4b7ae6304dafa090f47ceca16654"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/webr/help.data.gz": {
-      "checksum": "e80faaaa1ff33aa0dc04c8d4382a8497"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/webr/help.js.metadata": {
-      "checksum": "4dce600d60577106591348a2bef788a3"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/webr/html.data.gz": {
-      "checksum": "2764ca8b9fd90daca2676fc3c5cce64c"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/library/webr/html.js.metadata": {
-      "checksum": "c0caed8b8a6aba675811429c0377791b"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/share.data.gz": {
-      "checksum": "dcf0d1622c26f86c04d467cf60850b74"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/share.js.metadata": {
-      "checksum": "880528e2b90aa47ff60af9b5eea3e3d7"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/tests.data.gz": {
-      "checksum": "d99a8113a290a49f3c47096fb0baf095"
-    },
-    "docs/shinylive/webr/vfs/usr/lib/R/tests.js.metadata": {
-      "checksum": "24cd1ba3bb93e0aa2e56659ca4868c86"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSans-Bold.ttf": {
-      "checksum": "5959e861b45905afb3f5659b66e5a43b"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSans-BoldItalic.ttf": {
-      "checksum": "258746b7854392bcfd5531c3110674a1"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSans-Italic.ttf": {
-      "checksum": "b650143d06ff517e7482b6cbecb057b7"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSans-Regular.ttf": {
-      "checksum": "556ad26a9ff8afce0ea47896b298f4bf"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSansMono-Bold.ttf": {
-      "checksum": "e03f7c60925be06f6037ab22ceef6534"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSansMono-Regular.ttf": {
-      "checksum": "76bc9dee5de9d62cf1fff05a85b6d463"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSerif-Bold.ttf": {
-      "checksum": "ffdf273d3e86678a428bfe16de5793e5"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSerif-BoldItalic.ttf": {
-      "checksum": "0036797788d93b0f0cae86eec0040b1b"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSerif-Italic.ttf": {
-      "checksum": "4c488bfae3b56f7f85ddd8af6829accc"
-    },
-    "docs/shinylive/webr/vfs/usr/share/fonts/NotoSerif-Regular.ttf": {
-      "checksum": "788141e28255aec7da6d1f5444ddad4c"
-    },
-    "docs/shinylive/webr/vfs/usr/share/gdal.data.gz": {
-      "checksum": "27c43c9d7827dd67c6f388c8e830038c"
-    },
-    "docs/shinylive/webr/vfs/usr/share/gdal.js.metadata": {
-      "checksum": "40b6850183b35a195464ad6080f62917"
-    },
-    "docs/shinylive/webr/vfs/usr/share/proj.data.gz": {
-      "checksum": "834c143058be217e670c48ce1e77e206"
-    },
-    "docs/shinylive/webr/vfs/usr/share/proj.js.metadata": {
-      "checksum": "2e9339010891c4cb0323d7e6f667ff6b"
-    },
-    "docs/shinylive/webr/vfs/usr/share/udunits.data.gz": {
-      "checksum": "f8f64c29a93a151378929b6c882a7238"
-    },
-    "docs/shinylive/webr/vfs/usr/share/udunits.js.metadata": {
-      "checksum": "6ee5406e67a645a811abd58df92bd11f"
-    },
-    "docs/shinylive/webr/vfs/var/cache/fontconfig/3830d5c3ddfd5cd38a049b759396e72e-le32d8.cache-7": {
-      "checksum": "51aeeb054a5fd6fe2fe2a8d7a932210b"
-    },
-    "docs/shinylive/webr/vfs/var/cache/fontconfig/CACHEDIR.TAG": {
-      "checksum": "edad2301cde055e29b0d30b8d2f4b724"
-    },
-    "docs/shinylive/webr/webr-serviceworker.js": {
-      "checksum": "6876da0f1da4919269b12939fbf31674"
-    },
-    "docs/shinylive/webr/webr-serviceworker.js.map": {
-      "checksum": "a55aef60b46af74b1411d95d8ad4d6d6"
-    },
-    "docs/shinylive/webr/webr-serviceworker.mjs": {
-      "checksum": "6353b631c6f6b280eca93a4f41bd4d80"
-    },
-    "docs/shinylive/webr/webr-serviceworker.mjs.map": {
-      "checksum": "8ecb29b11c5f163ab392598321386c28"
-    },
-    "docs/shinylive/webr/webr-worker.js": {
-      "checksum": "240bb8f5a8f471bcb001321a70f1b689"
-    },
-    "docs/shinylive/webr/webr-worker.js.map": {
-      "checksum": "bd2f258304702c1299c294db28d6ebb1"
-    },
-    "docs/shinylive/webr/webr.cjs": {
-      "checksum": "0e48a22131473014da8d8f908c5239cf"
-    },
-    "docs/shinylive/webr/webr.cjs.map": {
-      "checksum": "5f127717f06f47da540986cf752ce4dc"
-    },
-    "docs/shinylive/webr/webr.mjs": {
-      "checksum": "f300831240837ff242f2e8ddfd691a40"
-    },
-    "docs/shinylive/webr/webr.mjs.map": {
-      "checksum": "e27293bf312150fc231ca6c7fd649591"
-    },
-    "docs/shinylive/webr/webR/chan/channel-common.d.ts": {
-      "checksum": "fec049491a432f1ccbf3ce024bba3baa"
-    },
-    "docs/shinylive/webr/webR/chan/channel-postmessage.d.ts": {
-      "checksum": "c6a8f78fab628134b7180ff5e59a4f64"
-    },
-    "docs/shinylive/webr/webR/chan/channel-service.d.ts": {
-      "checksum": "6b35591f5de7e812bf9227d55a8b35e4"
-    },
-    "docs/shinylive/webr/webR/chan/channel-shared.d.ts": {
-      "checksum": "e56a605f994592473e1c84ec5f58800c"
-    },
-    "docs/shinylive/webr/webR/chan/channel.d.ts": {
-      "checksum": "ae565b837db4ae87ba2152b9d961eb22"
-    },
-    "docs/shinylive/webr/webR/chan/message.d.ts": {
-      "checksum": "7705b5d065fc7c9ec24c5906bcb3e1e9"
-    },
-    "docs/shinylive/webr/webR/chan/queue.d.ts": {
-      "checksum": "88820d2b2237896b22d15da0bb8246ea"
-    },
-    "docs/shinylive/webr/webR/chan/serviceworker.d.ts": {
-      "checksum": "6d929e5cd8ad392cfa10734d88c25d67"
-    },
-    "docs/shinylive/webr/webR/chan/task-common.d.ts": {
-      "checksum": "5bec41a29d2b750b509fcc4f8a1ed1e0"
-    },
-    "docs/shinylive/webr/webR/chan/task-main.d.ts": {
-      "checksum": "f6f605da203f29469a5b4d38b2c0bcce"
-    },
-    "docs/shinylive/webr/webR/chan/task-worker.d.ts": {
-      "checksum": "cf6b12ffd3797cb9303bbd190351eb4b"
-    },
-    "docs/shinylive/webr/webR/compat.d.ts": {
-      "checksum": "33eda8bd4455ab1b10c7e580db558f45"
-    },
-    "docs/shinylive/webr/webR/config.d.ts": {
-      "checksum": "1b90f65c821aed4f4b94346b627b8f61"
-    },
-    "docs/shinylive/webr/webR/console.d.ts": {
-      "checksum": "591c23a125e11dcf3dd2e959cfdc06b9"
-    },
-    "docs/shinylive/webr/webR/emscripten.d.ts": {
-      "checksum": "53e2792c2840ac195fcddc418a1e92cf"
-    },
-    "docs/shinylive/webr/webR/error.d.ts": {
-      "checksum": "f6ab6e58de6eb63a7d7b16aaa48be714"
-    },
-    "docs/shinylive/webr/webR/mount.d.ts": {
-      "checksum": "38d8db9f3e2f2af9e5826efbfa1e7762"
-    },
-    "docs/shinylive/webr/webR/payload.d.ts": {
-      "checksum": "eb9cd4d5c9df6f2a1a9b20e70e06aa35"
-    },
-    "docs/shinylive/webr/webR/proxy.d.ts": {
-      "checksum": "60050c04a4a7bef595d0b8fe6477ca36"
-    },
-    "docs/shinylive/webr/webR/robj-main.d.ts": {
-      "checksum": "d01b9ab014e5b5d44f1b52bf6ab177e0"
-    },
-    "docs/shinylive/webr/webR/robj-worker.d.ts": {
-      "checksum": "6df4a4fa57fa272f661e797033c6f458"
-    },
-    "docs/shinylive/webr/webR/robj.d.ts": {
-      "checksum": "36b1c032d91beb66132e8e21fc21865c"
-    },
-    "docs/shinylive/webr/webR/utils-r.d.ts": {
-      "checksum": "8dd57576c21644349c45e562ce9f1f4a"
-    },
-    "docs/shinylive/webr/webR/utils.d.ts": {
-      "checksum": "261bb1e9718c734a460306deb79329b9"
-    },
-    "docs/shinylive/webr/webR/webr-chan.d.ts": {
-      "checksum": "683480399ea03890693829db6ee60495"
-    },
-    "docs/shinylive/webr/webR/webr-main.d.ts": {
-      "checksum": "625d6530fe95580137a5814132436ec2"
-    },
-    "docs/shinylive/webr/webR/webr-worker.d.ts": {
-      "checksum": "e2ebd7ddedcadeeadbf819c35985c768"
-    },
-    "renv.lock": {
-      "checksum": "44bed6d7e2cf30165b083d9085b6d971"
+    "db_helpers.R": {
+      "checksum": "1b8cd812fc99257b76373f99f9f5076a"
     },
     "www/CCBC.jpg": {
       "checksum": "78d4c43fc531ffff82005fbbbc75afba"
