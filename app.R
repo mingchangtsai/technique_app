@@ -629,7 +629,8 @@ server <- function(input, output, session) {
     if (save_to_db(out, replace = TRUE)) pending_save(NULL)
   })
 
-  output$tbl_recent <- renderDT({
+  # A failure here must show up in the table area, not leave it silently blank
+  output$tbl_recent <- renderDT(tryCatch({
     df <- master_df()
     if (nrow(df) == 0) {
       return(datatable(data.frame(
@@ -652,7 +653,9 @@ server <- function(input, output, session) {
       select(Athlete, Sex, Team, Date, Subtechnique) %>%
       head(10)
     datatable(recent, options = list(pageLength = 10, dom = 't'))
-  })
+  }, error = function(e) {
+    datatable(data.frame(Error = conditionMessage(e)), options = list(dom = 't'))
+  }))
 }
 
 shinyApp(ui, server)
