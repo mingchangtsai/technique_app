@@ -352,14 +352,23 @@ server <- function(input, output, session) {
         div(style = "font-size:11px;", "Reload the page to retry once the issue is fixed."))
   })
 
-  # --------- Athlete names from csi.mt_roster ---------
+  # --------- Athlete names from csi.mt_current_roster (this season) ---------
+  roster <- if (db_ok) tc_data$athletes
+            else data.frame(name = character(), sex = character())
   if (db_ok) {
-    choices <- tc_data$athletes
-    updateSelectizeInput(session, "athlete", choices = choices, server = TRUE)
-    output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d names from database", length(choices))))
+    updateSelectizeInput(session, "athlete", choices = roster$name, server = TRUE)
+    output$athlete_hint <- renderUI(span(style="color:#888;", sprintf("Loaded %d current-season athletes", nrow(roster))))
   } else {
     output$athlete_hint <- renderUI(span(style="color:#c00;", "Could not load athlete names"))
   }
+
+  # Picking a roster athlete pre-selects their sex (a typed-in name doesn't)
+  observeEvent(input$athlete, {
+    s <- roster$sex[match(trimws(input$athlete), roster$name)]
+    if (length(s) == 1 && !is.na(s) && s %in% sex_choices) {
+      shinyWidgets::updatePrettyRadioButtons(session, "sex_btn", selected = s)
+    }
+  }, ignoreInit = TRUE)
 
   # Map Team -> U16 rubric for "BC Dev"
   current_st_list <- reactive({

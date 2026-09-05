@@ -3,7 +3,8 @@
 # of ../database) so the app folder deploys as-is to Posit Connect Cloud.
 #
 # Objects used:
-#   csi.mt_roster             view  - athlete names (setup_monthly_testing.R)
+#   csi.mt_current_roster     view  - current-season athletes with sex/dob
+#                                     (setup_monthly_testing.R)
 #   csi.technique_checklist   table - one row per rubric item scored
 #                                     (created by database/setup_technique.R)
 #
@@ -53,9 +54,10 @@ tc_with_con <- function(fn) {
   fn(con)
 }
 
-# Athlete names for the dropdown (production roster).
+# Athletes for the dropdown: current season only. The view filters to the
+# max last_coached_season itself, so this rolls over each year on its own.
 tc_load_athletes <- function(con) {
-  DBI::dbGetQuery(con, "select name from csi.mt_roster order by name")$name
+  DBI::dbGetQuery(con, "select name, sex from csi.mt_current_roster order by name")
 }
 
 # All checklist rows, aliased to the column names the app uses internally
