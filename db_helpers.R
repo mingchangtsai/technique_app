@@ -5,17 +5,18 @@
 # Objects used:
 #   csi.mt_current_roster     view  - current-season athletes with sex/dob
 #                                     (setup_monthly_testing.R)
+#   csi.athlete_lookup        view  - full roster, used to resolve athlete_id
 #   csi.technique_checklist   table - one row per rubric item scored
 #                                     (created by database/setup_technique.R)
 #
 # Password: CCBC_DB_PWD env var (set this on the deployment server), falling
-# back to the local keyring entry "ccbc_db". Never hardcoded.
+# back to the local keyring entry "bcskiteam_db". Never hardcoded.
 
 library(DBI)
 library(RPostgres)
 
 TC_DB <- list(
-  host   = "ccbclabs.duckdns.org",
+  host   = "bcskiteam.ca",
   port   = 5432L,
   dbname = "bcskiteam",
   user   = "csi"
@@ -24,12 +25,12 @@ TC_DB <- list(
 tc_password <- function() {
   pwd <- Sys.getenv("CCBC_DB_PWD", unset = "")
   if (!nzchar(pwd)) {
-    pwd <- tryCatch(keyring::key_get("ccbc_db", username = TC_DB$user),
+    pwd <- tryCatch(keyring::key_get("bcskiteam_db", username = TC_DB$user),
                     error = function(e) "")
   }
   if (!nzchar(pwd)) {
     stop("No database password. Set the CCBC_DB_PWD environment variable ",
-         "(deployment) or store it with keyring::key_set('ccbc_db', ",
+         "(deployment) or store it with keyring::key_set('bcskiteam_db', ",
          "username = 'csi') (local).", call. = FALSE)
   }
   pwd
@@ -40,7 +41,8 @@ tc_connect <- function() {
     RPostgres::Postgres(),
     host = TC_DB$host, port = TC_DB$port, dbname = TC_DB$dbname,
     user = TC_DB$user, password = tc_password(),
-    sslmode = "require",
+    sslmode = "prefer",      # production has no TLS yet; encrypts once it does
+    gssencmode = "disable",
     connect_timeout = 10,   # fail fast if a firewall drops the connection
     options = "-c search_path=csi,public"
   )
@@ -79,10 +81,23 @@ tc_load_all <- function(con) {
       from csi.technique_checklist")
 }
 
+# Resolve a name to its roster key. Matched against the whole roster, not just
+# the current season, so a name typed for an athlete outside this season still
+# gets an id. Unknown or ambiguous names give NA: the row still saves, carrying
+# the name alone, exactly as before athlete_id existed.
+tc_athlete_id <- function(con, name) {
+  hit <- DBI::dbGetQuery(con, "
+    select athlete_id from csi.athlete_lookup
+     where lower(btrim(full_name)) = lower(btrim($1))",
+    params = list(as.character(name)[1]))
+  if (nrow(hit) == 1) hit$athlete_id[1] else NA_character_
+}
+
 # Map the app's assembled data frame (sheet-style column names) onto the
 # table's columns. submitted_at comes from the table default (now()).
-tc_db_rows <- function(df) {
+tc_db_rows <- function(df, athlete_id = NA_character_) {
   data.frame(
+    athlete_id   = athlete_id,
     athlete      = trimws(df$Athlete),
     sex          = df$Sex,
     age_group    = df$Age_Group,
@@ -97,14 +112,15 @@ tc_db_rows <- function(df) {
 }
 
 tc_insert <- function(con, df) {
+  rows <- tc_db_rows(df, tc_athlete_id(con, df$Athlete[1]))
   DBI::dbAppendTable(con, DBI::Id(schema = "csi", table = "technique_checklist"),
-                     tc_db_rows(df))
+                     rows)
 }
 
 # Replace an existing submission (same athlete/sex/team/date/subtechnique):
 # delete the old rows and insert the new ones in a single transaction.
 tc_replace <- function(con, df) {
-  rows <- tc_db_rows(df)
+  rows <- tc_db_rows(df, tc_athlete_id(con, df$Athlete[1]))
   DBI::dbWithTransaction(con, {
     DBI::dbExecute(con, "
       delete from csi.technique_checklist
